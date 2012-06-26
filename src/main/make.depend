@@ -1,0 +1,13 @@
+# compile_grammar.c
+compile_grammar.o: compile_grammar.c grammar.h linkage.h pconf.h
+
+# concept_leaf.c
+concept_leaf.o: concept_leaf.c parse.h grammar.h linkage.h pconf.h
+
+# parse_text.c
+parse_text.o: parse_text.c parse.h grammar.h linkage.h pconf.h \
+ globals_parse.h globals_gram.h print_structs.h
+
+# train.c
+train.o: train.c pconf.h linkage.h
+

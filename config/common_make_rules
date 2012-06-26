@@ -1,0 +1,166 @@
+########################################################-*-mode:Makefile-*-
+##                                                                       ##
+##                  Language Technologies Institute                      ##
+##                     Carnegie Mellon University                        ##
+##                        Copyright (c) 1999                             ##
+##                        All Rights Reserved.                           ##
+##                                                                       ##
+##  Permission is hereby granted, free of charge, to use and distribute  ##
+##  this software and its documentation without restriction, including   ##
+##  without limitation the rights to use, copy, modify, merge, publish,  ##
+##  distribute, sublicense, and/or sell copies of this work, and to      ##
+##  permit persons to whom this work is furnished to do so, subject to   ##
+##  the following conditions:                                            ##
+##   1. The code must retain the above copyright notice, this list of    ##
+##      conditions and the following disclaimer.                         ##
+##   2. Any modifications must be clearly marked as such.                ##
+##   3. Original authors' names are not deleted.                         ##
+##   4. The authors' names are not used to endorse or promote products   ##
+##      derived from this software without specific prior written        ##
+##      permission.                                                      ##
+##                                                                       ##
+##  CARNEGIE MELLON UNIVERSITY AND THE CONTRIBUTORS TO THIS WORK         ##
+##  DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING      ##
+##  ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT   ##
+##  SHALL CARNEGIE MELLON UNIVERSITY NOR THE CONTRIBUTORS BE LIABLE      ##
+##  FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    ##
+##  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN   ##
+##  AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,          ##
+##  ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF       ##
+##  THIS SOFTWARE.                                                       ##
+##                                                                       ##
+###########################################################################
+##                                                                       ##
+##    Common make rules included in all Makefiles                        ##
+##                                                                       ##
+###########################################################################
+
+# System type
+-include $(TOP)/config/system.mak
+
+#  Include project specific rules
+-include $(TOP)/config/project.mak
+
+## User defined configuration options
+include $(TOP)/config/config
+
+INCLUDES = -I$(TOP)/include
+CPPFLAGS += $(LOCAL_INCLUDES) $(INCLUDES)
+CFLAGS += $(EXTRA_CC_FLAGS) $(OPT) $(DBG)
+## These'll become (target)arch dependent at some point
+BINDIR=$(shell test -d $(TOP)/bin || mkdir $(TOP)/bin; echo $(TOP)/bin; )
+LIBDIR=$(TOP)/lib
+
+PHOENIXTELIBS = $(TOP)/lib/libphoenix.a
+LDFLAGS += -L$(TOP)/lib -lphoenix -lm
+
+all: .make_build_dirs $(ALL) nothing
+
+nothing:
+	@ echo > /dev/null
+
+%.o : %.c
+	$(CC) $(DEFS) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+.build_lib: $(OBJS)
+	$(AR) cruv $(LIBDIR)/lib$(LIBNAME).a $(OBJS)
+	$(RANLIB) $(LIBDIR)/lib$(LIBNAME).a
+	touch .build_lib
+
+.make_build_dirs:
+	@ echo making in $(DIRNAME) ...
+ifdef BUILD_DIRS
+	@ set -e; for i in $(BUILD_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory; \
+	done
+endif
+
+clean:
+	@ echo make clean in $(DIRNAME) ...
+	@ rm -rf .build_lib .build_shlib *.o *.os *.a *~ $(LOCAL_CLEAN)
+ifdef ALL_DIRS
+	@ set -e; for i in $(ALL_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory clean; \
+	done
+endif
+
+distclean:
+	@ echo make distclean in $(DIRNAME) ...
+ifdef ALL_DIRS
+	@ set -e; for i in $(ALL_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory distclean; \
+	done
+endif
+	@ rm -rf .build_lib .build_shlib make.depend \
+		*.o *.os *.a *~ $(LOCAL_CLEAN) $(DIST_CLEAN)
+
+install: $(INSTALL_HEADERS) $(INSTALL_LIBS)
+	@ echo make install in $(DIRNAME) ...
+ifdef INSTALL_HEADERS
+	@ mkdir -p $(INSTALLINCDIR)
+	@ install -m644 $(INSTALL_HEADERS) $(INSTALLINCDIR)
+endif
+ifdef INSTALL_LIBS
+	@ mkdir -p $(INSTALLLIBDIR)
+	@ cp -fd $(INSTALL_LIBS) $(INSTALLLIBDIR)
+endif
+ifdef ALL_DIRS
+	@ set -e; for i in $(ALL_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory install; \
+	done
+endif
+
+DEPEND=make.depend
+MAKE_DEPEND=$(CC) -MM $(CPPFLAGS) $(CFLAGS)
+
+depend:
+	@ echo make depend in $(DIRNAME) ...
+	@ rm -f $(DEPEND)
+	@ $(MAKE) nothing
+ifdef ALL_DIRS
+	@ set -e; for i in $(ALL_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory depend ; \
+	done
+endif
+
+$(DEPEND): $(SRCS)
+	@ rm -f $(DEPEND)
+	@ for i in $(SRCS) ; \
+	  do \
+            echo "# $$i" ; \
+	    $(MAKE_DEPEND) $$i ; \
+	    echo ; \
+          done > $(DEPEND)
+
+file-list:
+	@ echo making file-list in $(DIRNAME) ...
+	@ for f in $(FILES) ; \
+	do \
+	   echo $(DIRNAME)/$$f >>$(TOP)/FileList ; \
+	done 
+ifdef ALL_DIRS
+	@ for i in $(ALL_DIRS) ; \
+	do \
+	   $(MAKE) -C $$i --no-print-directory file-list; \
+	done
+endif 
+
+info:
+	@echo Project Name = $(PROJECT_NAME)
+	@echo Project Prefix = $(PROJECT_PREFIX)
+	@echo Project Version = $(PROJECT_VERSION)
+	@echo Project Date = $(PROJECT_DATE)
+	@echo Project State = $(PROJECT_STATE)
+	@echo
+	@echo Configuration Variables
+	@echo none at present
+
+# If there are sources in this directory, load in the dependencies
+ifdef SRCS
+-include $(DEPEND)
+endif

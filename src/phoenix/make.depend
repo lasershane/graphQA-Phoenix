@@ -1,0 +1,22 @@
+# parse.c
+parse.o: parse.c grammar.h linkage.h parse.h print_structs.h match.h \
+ dict.h pconf.h
+
+# match.c
+match.o: match.c parse.h grammar.h linkage.h match.h globals_parse.h \
+ globals_gram.h
+
+# grammar.c
+grammar.o: grammar.c parse.h grammar.h linkage.h pconf.h dict.h \
+ globals_gram.h
+
+# dict.c
+dict.o: dict.c parse.h grammar.h linkage.h
+
+# pconf.c
+pconf.o: pconf.c pconf.h linkage.h
+
+# print_structs.c
+print_structs.o: print_structs.c print_structs.h parse.h grammar.h \
+ linkage.h globals_parse.h globals_gram.h
+

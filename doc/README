@@ -1,0 +1,296 @@
+                             THE PHOENIX SYSTEM
+
+OVERVIEW:
+Phoenix is a system designed for development of simple,
+robust Natural Language interfaces to applications.
+It uses frames to represent semantic relations.
+A frame represents some basic type of action for the
+application. Slots in a frame represent the information that
+is relevant to the action. Slots in a frame are filled by matching
+patterns in an input string (sentence). The slots are filled
+independently of the order in which they appear in the frame.
+The patterns which fill slots are represented as Recursive
+Transition Networks. Each slot has a grammar which specifies the
+patterns (strings of words) that can fill the slot. Since the
+patterns are compiled into RTNs, they can include calls to
+other networks. The parser fills a slot with a parse tree for the
+slot, with the slot name being the root of the tree.
+
+How loose or tight the system is, is a function of how the grammar
+is written.  Using one frame with one slot will produce a standard CFG
+parser.  This is efficient, but not very robust to unexpected input.
+At the other extreme, making each content word a separate slot will
+produce a key-word parser. Somewhere in between usually gives the best
+combination of robustness and precision.
+
+The system contains routines to:
+
+GENERATE grammar files
+The "train" program generates grammar files (.gra) from a corpus
+of annotated examples.
+These files may also be created directly with an editor.
+
+COMPILE grammar files
+The "compile_grammar" program compiles grammar (.gra) files
+into Recursive Transition Networks (.net files).
+The networks are in ASCII so you can look at them. However,
+you should recompile them when you copy them to a new machine.
+This is because word numbers are assigned according to a hash
+code, and this code will be different if the byte ordering
+of the machine changes.
+
+PARSE text
+The program "parse_text" will parse input using the grammar
+specified as a command line parameter.  The parser produces
+a frame. This structure is a set of slots, where each slot
+is a parse tree for a sentence fragment.
+
+_________________________________________________________________
+
+
+DIRECTORY CONTENTS:
+
+PhoenixLib:
+The directory "PhoenixLib" contains all code files except
+the main routine "parse_text.c", which is the user interface
+to call the parser.
+In addition to library functions, the "train" and "compile_
+grammar" main programs are in this directory.
+
+
+Apps:
+This directory contains "parse_text.c", which is a typed stdin
+interface to the parser.
+"run.csh" is a script to run the parse_text.
+In order to see what command-line parameters
+a program accepts, just type the program name with no
+parameters. It will print a usage message.
+
+Also in this directory are two example directories.
+Example1 contains the files for a simple date grammar.
+Example2 contains an annotated corpus to illustrate the train procedure.
+
+_________________________________________________________________
+
+COMPILING GRAMMARS:
+"compile_grammar" has a number of command-line options, but
+by default will compile a grammar in the current directory.
+It uses a file named "nets" as a list of grammar files to compile.
+It recreates the dictionary "base.dic" and the nets list file "NETS".
+
+A single grammar file can be compiled using the -f option.
+
+_________________________________________________________________
+
+RUNNING THE PARSER:
+The executable parser is called "parse_text".
+"parse_text" prompts for input from stdin,
+takes a typed string terminated by a newline,
+parses the string and prints out the parse.
+To exit the parser, type "quit".
+The script "run.csh" illustrates how to call the parser.
+
+Command-Line parameters:
+
+-grammar  <grammar directory>
+This parameter is mandatory, all others are optional.
+It specifies the directory which contains all grammar files.
+These consist of .gra files, base.dic (the dictionary), forms,
+NETS, nets.slot and nets.fun.
+
+-debug	<number>
+Number can have values from 0-6. As number increases,
+progressively more trace information is printed out.
+0 prints out nothing.
+
+-PROFILE  1
+Turns on profiling. This gives information on parse
+time and other resources used.  This can be used to optimize the
+sizes of the internal structures allocated.
+_________________________________________________________________
+
+FILES:
+
+forms
+This file specifies the frames to be used by the parser.
+Each frame looks like:
+FUNCTION: <name>
+NETS:
+[<slot_name>]
+[<slot_name>]
+;
+
+The <name> specified on the FUNCTION line is associated with
+the frame. It is not used by the parser but can be passed along
+to a back end if desired.
+
+After the NETS: line, the set of slots for the frame are listed,
+one per line enclosed in square brackets.
+
+The frame is terminated by a ';' at the start of the line.
+DO NOT FORGET TO TERMINATE THE FRAME WITH A SEMICOLON OR IT
+WON'T BE RECOGNIZED.
+
+_________________
+
+grammar (.gra) files
+These are the grammar rules. They are text files which specify the
+patterns which match tokens in the grammar. Each of these files must
+end with the extension ".gra".  The token is the name of the file
+(less extension).
+On the first line of the file, the net name is enclosed in square
+brackets. After this follow a set of re-write patterns, one per line
+each enclosed in parentheses, with leading whitespace on the line.
+After the basic re-write patterns follow the non-terminal rewrites,
+which have the same format.
+[net_name]
+    (pattern a)
+    (pattern b)
+NT
+    (rewrite rule fo NT)
+
+Notation used in pattern specification:
+
+Names enclosed in square brackets [] are calls to other networks.
+
+Lower case strings are terminals
+
+Upper case strings are non-terminals
+
+* indicates 0 or 1 repetitions of a string (ie. it is optional)
++ indicates 1 or more repetitions of a string
++* indicates 0 or more repetitions (equivalent to a Kleene star)
+
+#include <filename> can be used to include a file which
+contains non-terminal re-writes.
+
+_________________
+.net files - compiled grammar files
+These are ascii files representing Recursive Transition Networks.
+The first line in the file is the number of nodes in the net.
+Then the nodes are listed, each followed by the arcs out of it.
+A node entry in the file has the following format:
+node_number   number_of_sucs   final
+
+nodes are numbered sequentially, with the start node being 0.
+number_of_sucs is the number of arcs leaving the node.
+final is a binary flag indicating whether the node is a final node.
+
+The entries for arcs out of a node follow the entry for the node.
+Arc entries have the following format:
+word_number net_number  to_state
+An arc may be a word arc, with word word_num and net_number=0
+              a null arc, indicated by word_num=0 and net_number=0
+              a call arc, indicated by net_num >0
+
+
+_________________
+nets
+This file lists the names of nets in the grammar.
+It is used by compile_grammar to create the NETS file
+while assigns numbers to nets.
+
+_________________
+NETS
+This file contains net names and numbers. It is created by sequentially
+assigning numbers to the entries in the "nets" file, starting with 1.
+
+_________________
+base.dic  - the dictionary
+This is a text file containing the word strings and numbers assigned to them.
+Each line in the file contains one word and the number assigned to it. The
+word numbers are not sequential, they are assigned by hash code.
+_________________________________________________________________
+WHAT THE DEVELOPER MUST SUPPLY
+.gra files
+nets file
+forms file
+
+
+compile_grammar creates:
+base.dic - the dictionary
+NETS - the net number file
+.net file for each .gra
+
+_________________________________________________________________
+
+WHAT THE PARSER OUTPUTS
+The "parse_text" routine in the application directory inputs a line of
+text and passes the line to the parser. Parsing is done by the function
+parse() in the file parse.c.  This function is passed a pointer to the
+string to be parsed. The parser puts its final output in a buffer
+pointed to by "parses" (FrameNode **parses). Where
+
+typedef struct frame_node {
+	unsigned char n_frames;		/* number of frames in parse */
+	unsigned char frame;		/* frame id of current frame */
+	Edge *edge;			/* pointer to slot edge in chart */
+	struct frame_node *bp;		/* used only in intermediate search */
+	struct frame_node *link;	/* used only in intermediate search */
+} FrameNode;
+
+A parse is a sequence of slots each with a frame id attached. A
+sequence of slots with the same frame id are all in the same frame.
+The FrameNode structures are filled in with the frame id and pointer
+to the edge in the chart for the slot. The nodes are written to
+the buffer in order, with the first slot of a new parse appended after
+the last slot of the previous parse. All parses for an utterance will
+have the same number of slots filled, since any more fragmented ones
+would have been pruned. The number of slots filled in each parse is
+in the global variable "n_slots".  The number of alternative parses is
+in "num_parses".
+A loop to print out the parses:
+
+
+/* print parses */
+/* for each parse */
+for(parse_num= 0; parse_num < num_parses; parse_num++ ) {
+    printf("Parse %d\n", parse_num+1);
+    /* compute pointer to first slot in parse */
+    fptr= parses + (n_slots * parse_num);
+    /* initialize flag to signal when new frame starts */
+    flag= -1;
+    /* for each slot in parse */
+    for(j=0; j < n_slots; j++, fptr++) {
+        if( (*fptr)->frame != frame ) {
+	    /* this node starts a new frame */
+            frame= (*fptr)->frame;
+	    printf("Frame %s:\n", frame_name[frame]);
+        }
+        print_edge( (*fptr)->edge->tree[0].net,
+                    (*fptr)->edge->tree[0].sw,
+                    (*fptr)->edge->tree[0].ew,0);
+        printf("\n");
+    }
+    printf("\n\n");
+}
+
+
+
+The Edge structure represents the tree structure of the parse.
+
+/* edges in chart */
+typedef struct edge {
+	Val	*tree;		/* parse tree */
+	char	idx;		/* number of elements on tree */
+	struct edge *link;
+}Edge;
+
+and
+
+
+typedef struct val {
+	Id	net;		/* network index number */
+	Id	sw;		/* start word for net, relative to script */
+	Id	ew;		/* end word for net ... */
+	Id	score;		/* score for matched phrase */
+} Val;
+
+tree[0] is a pointer to the net matched by the edge, its sw, ew and score.
+tree[1...(idx-1)] are pointers to subtrees called directly by the net.
+Not any trees they in turn called.
+Look at the print_edge function to see how this works.
+_________________________________________________________________
+BUGS :
+    While the parser doesn't care, the network compiler won't correctly
+    compile recursive calls in a net. That is, a net can't call itself.
