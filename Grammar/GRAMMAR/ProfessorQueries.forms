@@ -1,0 +1,18 @@
+#######################################################
+# 
+# 
+# 
+# 
+#######################################################
+
+FUNCTION: ProfessorQuery
+    NETS:
+	[Professor]
+	[OfficeQuery]
+	[DescriptionQuery]
+	[PhoneQuery]
+	[EmailQuery]
+	[DepartmentQuery]
+	[PublicationQuery]
+	[ResearchQuery]
+;

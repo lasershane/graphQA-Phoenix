@@ -1,0 +1,129 @@
+###################################################################
+# 
+# CMU QA Receptionist Specific segments
+# 
+# 
+# 
+# Shane Smith
+# 
+# 
+###################################################################
+
+[Professor]
+	(*TITLE NAME)
+
+TITLE
+	(professor)
+	(dr.)
+
+NAME
+	(_ERIC_NYBERG)
+	(ALAN_BLACK)
+
+_ERIC_NYBERG
+	(eric *nyberg)
+	(eric nyberg's)
+	(nyberg)
+	(eric's)
+	(nyberg's)
+
+ALAN_BLACK
+	(alan *black)
+	(alan's)
+	(alan black's)
+	(black's)
+	(black)
+
+;
+
+[OfficeQuery]
+	(where is [Professor] *office)
+	(*_i_want *the office for [Professor])
+	(*find *the office *for [Professor])
+	(does [Professor] have an office)
+	(where can i find [professor] *office)
+	(do you know where [professor] *office is *located)
+	([_can_you] help me find [professor] *office)
+;
+
+[DescriptionQuery]
+	(who is [Professor])
+	(*[_can_you] tell me about [Professor])
+	(*what do you know about [Professor])
+	(*what [_can_you] tell me about [Professor])
+;
+
+[PhoneQuery]
+	(*[_i_want] *to call [Professor])
+	(*[_i_want] PROF_PHONE)
+	(what is PROF_PHONE)
+	(do you know PROF_PHONE)
+	(FIND PROF_PHONE *for *me)
+	([_can_you] *help *me FIND PROF_PHONE)
+
+PROF_PHONE
+	([Professor] PHONE)
+	(*the PHONE FOR [Professor])
+
+FIND
+	(get *me)
+	(find *me)
+	(retrieve)
+	(search *for)
+	(give *me)
+	(locate)
+	(tell *me)
+FOR
+	(for)
+	(of)
+	(to)
+PHONE
+	(phone *number)
+	(number)
+	(telephone *number)
+	(office phone *number)
+;
+
+[EmailQuery]
+	(what is PROF_EMAIL)
+	(*[_i_want] PROF_EMAIL)
+	(*[_i_want] *to EMAIL [Professor])
+	(FIND *me PROF_EMAIL)
+	
+
+PROF_EMAIL
+	(*the EMAIL FOR [Professor])
+	([Professor] EMAIL)
+FIND
+	(get)
+	(find)
+	(retrieve)
+	(search *for)
+	(give)
+	(locate)
+	(tell)
+
+FOR
+	(for)
+	(of)
+	(to)
+EMAIL
+	(email *address)
+	(e-mail *address)
+;
+
+[DepartmentQuery]
+	(dept)
+;
+
+[PublicationQuery]
+	(pub)
+;
+[ResearchQuery]
+	(research)
+;
+
+
+
+
+

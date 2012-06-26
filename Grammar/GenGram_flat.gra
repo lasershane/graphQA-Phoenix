@@ -1,0 +1,2548 @@
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~  AUTOMATICALLY GENERATED INTERMEDIATE GRAMMAR; DO NOT EDIT!   ~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+###################################################################
+# GENERIC, TASK-INDEPENDENT SLOTS
+# 
+# Written by: Dan Bohus, May 2002
+# Checked/Updated by: Tina Bennett, May 2002
+#
+# This is a phoenix grammar for common task-independ constructs
+# that we are likely to use in most of the future developed 
+# spoken dialog systems. Its starting point were the task
+# independent constructs in the CMU Communicator grammar.
+#
+#
+# HISTORY: -------------------------------------------------------
+#
+# 
+# [2012-06-05] (sssmith):   added several more popular greetings
+#			     and other phrases specific to a 
+#                            college environment.
+# [2004-07-06] (dbohus):    added a number of things to improve
+#                            coverage (based on an analysis of
+#                            parsing statistics for the roomline
+#                            corpus on sprocket)
+# [2002-04-04] (dbohus):    added (i'll take) to [_i_want]
+# [2002-12-20] (antoine):   changed ([time_range] *[date] 
+#				*[period_of_day]) into two 
+#				separate rules to reduce ambiguity:
+#				([time_range] [period_of_day]) 
+#				is no longer possible, the period 
+#				of day is always parsed inside the 
+#				time_range.
+# [2002-12-03] (dbohus):    demoted [DateTime] to [date_time] which
+#                           is no longer a top-level slot
+# [2002-11-26] (antoine):   added an optional [period_of_day] after
+#				([time_range] *[date]) to account for
+#				e.g. "six thirty tomorrow morning"
+# [2002-11-26] (antoine):   set TimeRange, Date, Number as non-top 
+#	       (dbohus):    level slots renamed time_range, date,
+#				number
+# [2002-10-18] (dbohus):    Added [DateTime], by taking it from 
+#                           Communicator (and cleaning it a bit)
+# [2002-10-14] (dbohus):    Added [Number], by taking it from 
+#                           Communicator (erased the old one)
+# [2002-09-11] (dbohus):    added [Digit] and [Number], but will 
+#                           need to update with all the number
+#                           grammar from Communicator
+#
+###################################################################
+
+###################################################################
+# Social plus this that, etc
+###################################################################
+
+[_greeting]
+	( hello ) 
+	( hi there ) 
+	( hi ) 
+	( good morning ) 
+	( good afternoon ) 
+	( good evening ) 
+	( hey there ) 
+	( hey BRO ) 
+	( hey ) 
+	( hey there BRO ) 
+	( SUP ) 
+	( SUP BRO ) 
+
+SUP
+	( sup ) 
+	( what up ) 
+	( what's up ) 
+	( wassup ) 
+	( yo ) 
+
+BRO
+	( brother ) 
+	( bro ) 
+	( bra ) 
+	( brah ) 
+	( man ) 
+	( dude ) 
+	( partner ) 
+	( dog ) 
+	( dawg ) 
+	( home boy ) 
+	( home slice ) 
+	( homes ) 
+;
+
+[_can_you]
+	( could you [_courtesy] ) 
+	( could you also [_courtesy] ) 
+	( could you ) 
+	( could you also ) 
+	( can you [_courtesy] ) 
+	( can you ) 
+	( can you also ) 
+	( can you also [_courtesy] ) 
+	( will you also ) 
+	( will you also [_courtesy] ) 
+	( will you [_courtesy] ) 
+	( will you ) 
+	( can we also ) 
+	( can we also [_courtesy] ) 
+	( can we [_courtesy] ) 
+	( can we ) 
+	( would you also ) 
+	( would you also [_courtesy] ) 
+	( would you [_courtesy] ) 
+	( would you ) 
+;
+
+[_can_i]
+	( could i also ) 
+	( could i [_courtesy] ) 
+	( could i ) 
+	( could i also [_courtesy] ) 
+	( can i [_courtesy] ) 
+	( can i ) 
+	( can i also [_courtesy] ) 
+	( can i also ) 
+;
+
+[_tell_me]
+	( tell me ) 
+	( [_can_you] tell me ) 
+	( tell me about ) 
+	( [_can_you] tell me about ) 
+	( how about ) 
+;
+
+[_courtesy]
+	( please ) 
+	( THANK ) 
+	( THANK MUCH ) 
+	( welcome ) 
+	( YOU welcome ) 
+
+THANK
+	( thanks ) 
+	( thank you ) 
+MUCH
+	( very much ) 
+	( much ) 
+	( a lot ) 
+	( a bunch ) 
+YOU
+	( you are ) 
+	( you're ) 
+;
+
+[_it]
+	( it ) 
+	( this one ) 
+	( this ) 
+	( that one ) 
+	( that ) 
+;
+
+[_lets]
+	( let's ) 
+	( let's say ) 
+	( let us ) 
+	( let us say ) 
+;
+
+[_that_is]
+	( that's ) 
+	( that is ) 
+	( that'll ) 
+	( that'd ) 
+	( that was ) 
+	( it is ) 
+	( it's ) 
+;
+
+[_this_that]
+	( [_this] ) 
+	( [_that] ) 
+;
+
+[_that] 
+	( that one ) 
+	( that ) 
+	( it ) 
+;
+
+[_this]
+	( this one ) 
+	( this ) 
+	( the ) 
+	( it ) 
+;
+
+[_emphatic]
+	( i SAID ) 
+	( i already SAID ) 
+	( you sure ) 
+	( are you sure ) 
+	( actually ) 
+SAID
+	( said ) 
+	( told you ) 
+;
+
+[_tentative]
+	( i guess ) 
+	( i think ) 
+	( i believe ) 
+;
+
+[_it_does]
+	( it does ) 
+	( it did ) 
+;
+
+[_i_want]
+	( i will also want ) 
+	( i just also want TO_HAVE ) 
+	( i also want ) 
+	( i will want TO_HAVE ) 
+	( i will want ) 
+	( i just will want TO_HAVE ) 
+	( i also want TO_HAVE ) 
+	( i want ) 
+	( i want TO_HAVE ) 
+	( i just also want ) 
+	( i will also want TO_HAVE ) 
+	( i just will also want ) 
+	( i just will want ) 
+	( i just want ) 
+	( i just want TO_HAVE ) 
+	( i just will also want TO_HAVE ) 
+	( i just also need TO_HAVE ) 
+	( i just will also need ) 
+	( i also need ) 
+	( i just will also need TO_HAVE ) 
+	( i also need TO_HAVE ) 
+	( i just need ) 
+	( i need TO_HAVE ) 
+	( i just will need ) 
+	( i will also need ) 
+	( i just need TO_HAVE ) 
+	( i will also need TO_HAVE ) 
+	( i need ) 
+	( i will need ) 
+	( i just also need ) 
+	( i will need TO_HAVE ) 
+	( i just will need TO_HAVE ) 
+	( i just wanna ) 
+	( i just also wanna ) 
+	( i also wanna ) 
+	( i wanna ) 
+	( i wanted ) 
+	( i wanted TO_HAVE ) 
+	( i just wanted ) 
+	( i just wanted TO_HAVE ) 
+	( i just also wanted ) 
+	( i also wanted ) 
+	( i just also wanted TO_HAVE ) 
+	( i also wanted TO_HAVE ) 
+	( i'd like TO_HAVE ) 
+	( i'd like ) 
+	( i would like ) 
+	( i would like TO_HAVE ) 
+	( i'd prefer TO_HAVE ) 
+	( i'd prefer ) 
+	( i would prefer ) 
+	( i would prefer TO_HAVE ) 
+	( give me ) 
+	( CAN i also get ) 
+	( CAN i get ) 
+	( CAN i have ) 
+	( CAN i also have ) 
+	( CAN i take ) 
+	( CAN i also take ) 
+	( i'll take ) 
+	( i'll also take ) 
+	( i'll also have ) 
+	( i'll have ) 
+	( i just have to ) 
+	( i have to ) 
+	( i had to ) 
+	( i just had to ) 
+	( i must ) 
+	( how about ) 
+	( what about ) 
+	( do you have ) 
+CAN
+	( can ) 
+	( could ) 
+TO_HAVE
+	( to also have ) 
+	( to also ) 
+	( to ) 
+	( to have ) 
+	( to also ) 
+	( to ) 
+	( to get ) 
+	( to also get ) 
+	( to also ) 
+	( to ) 
+	( to know ) 
+	( to also know ) 
+;
+
+
+###################################################################
+# HELP GRAMMAR
+###################################################################
+[Help]
+	( [general_help] ) 
+	( [_i_want] [general_help] ) 
+	( [_tell_me] [what_can_i_say] now ) 
+	( [_tell_me] [what_can_i_say] ) 
+	( [what_can_i_say] now ) 
+	( [what_can_i_say] ) 
+	( [_i_want] [give_me_tips] ) 
+	( [give_me_tips] ) 
+	( [system_capabilities] ) 
+;
+
+[general_help]
+	( help ) 
+	( [_i_want] some help ) 
+	( [_i_want] help ) 
+	( some help ) 
+	( help me ) 
+	( [_can_you] help me ) 
+	( customer service ) 
+	( interactive info ) 
+	( interactive information ) 
+
+[what_can_i_say]
+	( what CAN i DO_SAY ) 
+	( THE options ) 
+	( what options ) 
+	( are THE options ) 
+	( what are options ) 
+	( what THE options ) 
+	( what are THE options ) 
+	( options ) 
+	( are options ) 
+	( [_i_want] instructions ) 
+	( some instructions ) 
+	( instructions ) 
+	( [_i_want] some instructions ) 
+	( an example ) 
+	( [_i_want] an example ) 
+	( i don't know what to DO_SAY ) 
+	( i don't know what i CAN DO_SAY ) 
+CAN
+	( can ) 
+	( should ) 
+	( could ) 
+	( do ) 
+DO_SAY
+	( do ) 
+	( say ) 
+THE
+	( the ) 
+	( my ) 
+;
+
+[give_me_tips]
+	( [_tell_me] how use the system ) 
+	( how to use the system ) 
+	( how [_can_i] to use the system ) 
+	( [_tell_me] how [_can_i] to use the system ) 
+	( how use the system ) 
+	( how [_can_i] use the system ) 
+	( [_tell_me] how [_can_i] use the system ) 
+	( [_tell_me] how to use the system ) 
+	( how things work ) 
+	( [_tell_me] how things work ) 
+	( some more TIPS ) 
+	( more TIPS ) 
+	( TIPS ) 
+	( some TIPS ) 
+	( more help ) 
+TIPS
+	( INTERACTION hints ) 
+	( hints ) 
+	( tips ) 
+	( INTERACTION tips ) 
+	( INTERACTION commands ) 
+	( commands ) 
+INTERACTION
+	( system ) 
+	( interaction ) 
+	( communication ) 
+;
+
+[system_capabilities]
+	( what can you do ) 
+	( what else can you do ) 
+	( [_tell_me] what can you do ) 
+	( [_tell_me] what else can you do ) 
+	( what else do you offer ) 
+	( [_tell_me] what do you offer ) 
+	( what do you offer ) 
+	( [_tell_me] what else do you offer ) 
+	( who are you ) 
+	( [_tell_me] who are you ) 
+	( what else do you do ) 
+	( [_tell_me] what else do you do ) 
+	( what do you do ) 
+	( [_tell_me] what do you do ) 
+	( how can you help ) 
+	( how else can you help ) 
+	( [_tell_me] how can you help me ) 
+	( [_tell_me] how can you help ) 
+	( [_tell_me] how else can you help ) 
+	( how else can you help me ) 
+	( [_tell_me] how else can you help me ) 
+	( how can you help me ) 
+;
+
+###################################################################
+# REPEAT GRAMMAR
+###################################################################
+
+[Repeat]
+	( REPEAT ) 
+	( sorry REPEAT [_courtesy] ) 
+	( REPEAT [_courtesy] ) 
+	( sorry REPEAT ) 
+	( excuse me ) 
+	( i beg your pardon ) 
+	( pardon ) 
+	( i pardon ) 
+	( your pardon ) 
+	( beg your pardon ) 
+	( i your pardon ) 
+	( i beg pardon ) 
+	( beg pardon ) 
+	( pardon me ) 
+	( sorry what was that ) 
+	( what was that again ) 
+	( what was that ) 
+	( sorry what was that again ) 
+	( sorry what's that again ) 
+	( sorry what's that ) 
+	( what's that again ) 
+	( what's that ) 
+	( WHATD you just say ) 
+	( sorry WHATD you just say ) 
+	( sorry WHATD you say ) 
+	( WHATD you say ) 
+	( <s> what </s> ) 
+	( i didn't HEAR YOU ) 
+	( sorry i didn't HEAR YOU ) 
+	
+WHATD
+	( what did ) 
+	( what'd ) 
+
+REPEAT
+	( repeat the question ) 
+	( repeat the question again ) 
+	( repeat [_it] ) 
+	( repeat ) 
+	( say [_it] again ) 
+	( say [_it] ) 
+	( say again ) 
+HEAR
+	( hear ) 
+	( understand ) 
+	( catch ) 
+
+YOU
+	( you ) 
+	( that ) 
+	( it ) 
+	( what you said ) 
+;
+
+###################################################################
+# SUSPEND/RESUME GRAMMAR
+###################################################################
+
+[Suspend] 
+	( TAKE_A_BREAK ) 
+	( [_lets] TAKE_A_BREAK FOR_TIME ) 
+	( TAKE_A_BREAK FOR_TIME ) 
+	( [_lets] TAKE_A_BREAK [_courtesy] ) 
+	( [_lets] TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( [_lets] TAKE_A_BREAK ) 
+	( TAKE_A_BREAK [_courtesy] ) 
+	( [_courtesy] [_can_you] HOLD_ON FOR_TIME ) 
+	( HOLD_ON ) 
+	( HOLD_ON FOR_TIME [_courtesy] ) 
+	( [_courtesy] HOLD_ON ) 
+	( [_can_you] HOLD_ON ) 
+	( [_can_you] HOLD_ON FOR_TIME ) 
+	( [_courtesy] HOLD_ON FOR_TIME [_courtesy] ) 
+	( [_courtesy] HOLD_ON [_courtesy] ) 
+	( HOLD_ON FOR_TIME ) 
+	( [_courtesy] [_can_you] HOLD_ON FOR_TIME [_courtesy] ) 
+	( [_can_you] HOLD_ON FOR_TIME [_courtesy] ) 
+	( [_can_you] HOLD_ON [_courtesy] ) 
+	( HOLD_ON [_courtesy] ) 
+	( [_courtesy] [_can_you] HOLD_ON [_courtesy] ) 
+	( [_courtesy] [_can_you] HOLD_ON ) 
+	( [_courtesy] HOLD_ON FOR_TIME ) 
+	( TAKE_A_BREAK ) 
+	( [_courtesy] TAKE_A_BREAK FOR_TIME ) 
+	( [_courtesy] [_can_you] TAKE_A_BREAK [_courtesy] ) 
+	( [_courtesy] TAKE_A_BREAK ) 
+	( [_courtesy] [_can_you] TAKE_A_BREAK ) 
+	( [_courtesy] [_can_you] TAKE_A_BREAK FOR_TIME ) 
+	( [_courtesy] TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( [_can_you] TAKE_A_BREAK FOR_TIME ) 
+	( [_can_you] TAKE_A_BREAK ) 
+	( TAKE_A_BREAK FOR_TIME ) 
+	( TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( [_courtesy] [_can_you] TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( [_can_you] TAKE_A_BREAK [_courtesy] ) 
+	( [_can_you] TAKE_A_BREAK FOR_TIME [_courtesy] ) 
+	( [_courtesy] TAKE_A_BREAK [_courtesy] ) 
+	( TAKE_A_BREAK [_courtesy] ) 
+HOLD_ON
+	( hold on ) 
+	( hold on [_courtesy] ) 
+	( stand by [_courtesy] ) 
+	( stand by ) 
+TAKE_A_BREAK
+	( take a break ) 
+	( take a SHORT break ) 
+	( have a SHORT break ) 
+	( have a break ) 
+	( break ACTIVITY ) 
+	( break [_this] ACTIVITY ) 
+	( pause [_this] ACTIVITY ) 
+	( pause ACTIVITY ) 
+	( hold on ) 
+	( suspend [_this] ACTIVITY ) 
+	( suspend ACTIVITY ) 
+	( suspend ) 
+	( suspend [_this] ) 
+ACTIVITY
+	( activity ) 
+	( dialog ) 
+	( dialogue ) 
+	( conversation ) 
+	( session ) 
+SHORT
+	( short ) 
+	( quick ) 
+	( small ) 
+	( little ) 
+FOR_TIME
+	( a while ) 
+	( for a while ) 
+	( now ) 
+	( for now ) 
+	( for a second ) 
+	( a second ) 
+	( for a minute ) 
+	( a minute ) 
+	( for a couple of minutes ) 
+	( a couple of minutes ) 
+;
+
+[Resume]
+	( resume [_courtesy] ) 
+	( [_courtesy] resume [_courtesy] ) 
+	( resume [_this] ACTIVITY ) 
+	( [_courtesy] resume ACTIVITY [_courtesy] ) 
+	( resume ACTIVITY ) 
+	( [_courtesy] resume [_this] ACTIVITY [_courtesy] ) 
+	( [_courtesy] resume [_this] [_courtesy] ) 
+	( [_courtesy] resume ) 
+	( resume [_this] ) 
+	( resume [_this] [_courtesy] ) 
+	( [_courtesy] resume ACTIVITY ) 
+	( [_courtesy] resume [_this] ACTIVITY ) 
+	( resume [_this] ACTIVITY [_courtesy] ) 
+	( resume ) 
+	( [_courtesy] resume [_this] ) 
+	( resume ACTIVITY [_courtesy] ) 
+
+ACTIVITY
+	( activity ) 
+	( dialog ) 
+	( dialogue ) 
+	( conversation ) 
+	( session ) 
+;
+
+###################################################################
+# START-OVER GRAMMAR
+###################################################################
+
+[StartOver]	
+	( restart IT ) 
+	( restart ) 
+	( reset IT ) 
+	( reset ) 
+	( start all OVER ) 
+	( start IT OVER ) 
+	( start OVER ) 
+	( start IT all OVER ) 
+	( start from the very BEGINNING ) 
+	( start from the BEGINNING ) 
+	( go back to the BEGINNING ) 
+	( START from scratch ) 
+	( main menu ) 
+
+IT
+	( [_it] ) 
+	( ACTIVITY ) 
+	( [_this] ACTIVITY ) 
+	( [_this] system ) 
+	( system ) 
+
+ACTIVITY
+	( activity ) 
+	( dialog ) 
+	( dialogue ) 
+	( session ) 
+	( conversation ) 
+
+OVER
+	( again ) 
+	( over ) 
+
+BEGINNING
+	( beginning ) 
+	( start ) 
+
+START
+	( start ) 
+	( restart ) 
+;
+
+
+###################################################################
+# ESTABLISH CONTEXT GRAMMAR
+###################################################################
+
+[EstablishContext]
+	( where are we ) 
+	( where am i ) 
+	( what's going on ) 
+	( what are we doing ) 
+	( what am i doing ) 
+	( what is happening ) 
+	( where were we ) 
+	( where was i ) 
+;
+
+###################################################################
+# GOOD ENOUGH GRAMMAR
+###################################################################
+[GoodEnough]
+	( [_that_is] enough ) 
+	( enough ) 
+	( good enough ) 
+	( [_that_is] good enough ) 
+;
+
+###################################################################
+# QUIT GRAMMAR
+###################################################################
+
+[Quit]
+	( bye ) 
+	( good bye ) 
+	( goodbye ) 
+	( byebye ) 
+	( bye bye ) 
+	( hang up now ) 
+	( hang up ) 
+	( see you later ) 
+	( that's all ) 
+	( have a good day ) 
+	( good night ) 
+	( goodnight ) 
+	( quit ) 
+	( <s> [_i_want] abort [_courtesy] </s> ) 
+	( <s> abort [_courtesy] </s> ) 
+	( <s> [_i_want] abort SESSION </s> ) 
+	( <s> [_i_want] abort SESSION [_courtesy] </s> ) 
+	( <s> abort SESSION </s> ) 
+	( <s> abort SESSION [_courtesy] </s> ) 
+	( <s> [_i_want] abort </s> ) 
+	( <s> abort </s> ) 
+	( <s> [_i_want] exit [_courtesy] </s> ) 
+	( <s> exit [_courtesy] </s> ) 
+	( <s> [_i_want] exit </s> ) 
+	( <s> exit SESSION [_courtesy] </s> ) 
+	( <s> [_i_want] exit SESSION </s> ) 
+	( <s> exit SESSION </s> ) 
+	( <s> [_i_want] exit SESSION [_courtesy] </s> ) 
+	( <s> exit </s> ) 
+	( <s> quit SESSION </s> ) 
+	( <s> quit SESSION [_courtesy] </s> ) 
+	( <s> [_i_want] quit SESSION </s> ) 
+	( <s> [_i_want] quit [_courtesy] </s> ) 
+	( <s> [_i_want] quit </s> ) 
+	( <s> quit </s> ) 
+	( <s> quit [_courtesy] </s> ) 
+	( <s> [_i_want] quit SESSION [_courtesy] </s> ) 
+
+SESSION
+	( [_this] dialog ) 
+	( dialog ) 
+	( [_this] dialogue ) 
+	( dialogue ) 
+	( session ) 
+	( [_this] session ) 
+	( conversation ) 
+	( [_this] conversation ) 
+	( [_this] system ) 
+	( system ) 
+;
+
+
+###################################################################
+# NEITHER grammar
+###################################################################
+[Neither]
+	( NEITHER one ) 
+	( [_i_want] NEITHER ) 
+	( [_i_want] NEITHER one ) 
+	( NEITHER ) 
+	( [_i_want] NEITHER OF_THOSE ) 
+	( NEITHER OF_THOSE ) 
+	( NEITHER one OF_THOSE ) 
+	( [_i_want] NEITHER one OF_THOSE ) 
+	( NEITHER OF_THOSE IS_GOOD ) 
+	( NEITHER IS_GOOD ) 
+	( NEITHER one OF_THOSE IS_GOOD ) 
+	( NEITHER one IS_GOOD ) 
+	( NO_WANT any OF_THOSE ) 
+	( NO_WANT any ) 
+NEITHER
+	( neither ) 
+	( none ) 
+OF_THOSE
+	( of them ) 
+	( of these ) 
+	( of those ) 
+IS_GOOD
+	( is good ) 
+	( is right ) 
+NO_WANT
+	( i don't want ) 
+	( i don't like ) 
+;
+
+###################################################################
+# YES/NO grammar
+###################################################################
+
+[Yes]
+	( YES ) 
+	( YES MOD ) 
+	( STRONG_MOD ) 
+	( <s> OKAY </s> ) 
+	( <s> WEAK_MOD </s> ) 
+YES
+	( yes ) 
+	( yeah ) 
+	( yep ) 
+	( yup ) 
+MOD
+	( STRONG_MOD ) 
+	( WEAK_MOD ) 
+
+STRONG_MOD
+	( be OKAY ) 
+	( [_that_is] OKAY ) 
+	( OKAY ) 
+	( [_that_is] be OKAY ) 
+	( [_this_that] sounds OKAY ) 
+	( [_this_that] works ) 
+	( you betcha ) 
+	( go for it ) 
+	( let's go for it ) 
+	( absolutely ) 
+	( definitely ) 
+	( <s> OKAY OKAY </s> ) 
+
+WEAK_MOD
+	( why not ) 
+	( i think so ) 
+	( i guess so ) 
+	( close enough ) 
+	( [_that_is] close enough ) 
+OKAY
+	( sure ) 
+	( of course ) 
+	( ok ) 
+	( okay ) 
+	( correct ) 
+	( fine ) 
+	( perfect ) 
+	( great ) 
+	( wonderful ) 
+	( acceptable ) 
+	( good enough ) 
+	( good ) 
+	( right ) 
+	( alright ) 
+	( cool ) 
+;
+
+[No]
+	( no ) 
+	( no MOD ) 
+	( [_emphatic] no ) 
+	( absolutely not ) 
+	( no absolutely not ) 
+	( nope ) 
+	( nah ) 
+	( no way ) 
+	( no i DONT ) 
+	( i DONT ) 
+	( no i DONT think so ) 
+	( i DONT think so ) 
+	( no i DONT like [_this_that] ) 
+	( i DONT like [_this_that] ) 
+	( i DONT want [_this_that] ) 
+	( no i DONT want [_this_that] ) 
+	( never mind ) 
+	( nevermind ) 
+	( not really ) 
+	( no not really ) 
+	( nowhere ) 
+	( negative ) 
+DONT
+	( don't ) 
+	( do not ) 
+MOD
+	( thanks ) 
+	( thank you ) 
+	( not really ) 
+	( i don't want to ) 
+	( i really don't want to ) 
+	( i really don't want [_this_that] ) 
+	( i don't want [_this_that] ) 
+	( it's not ) 
+	( i'm not ) 
+	( [_that_is] not what i want ) 
+	( NO GOOD ) 
+	( NO ) 
+	( [_that_is] NO ) 
+	( [_that_is] NO GOOD ) 
+NO
+	( no ) 
+	( not ) 
+GOOD
+	( right ) 
+	( correct ) 
+	( good ) 
+	( okay ) 
+;
+
+
+###################################################################
+# NUMBERS GRAMMAR
+###################################################################
+
+# (dbohus): This is the numbers grammar, extracted from the 
+#           original Communicator grammar
+
+[number]
+	( one ) 
+	( THOU_HUND ) 
+	( THOU_HUND AND_NUM ) 
+	( NUM ) 
+
+AND_NUM
+	( and AND_NUM_OPTS ) 
+
+AND_NUM_OPTS
+	( TEN ) 
+	( TEN ONE'S ) 
+	( TEEN ) 
+	( ONE'S ) 
+
+THOU_HUND
+	( THOU HUND ) 
+	( HUND ) 
+	( THOU ) 
+
+NUM
+	( THOU ONE'S ) 
+	( HUND TEN ONE'S ) 
+	( THOU HUND ONE'S ) 
+	( THOU HUND TEN ONE'S ) 
+	( THOU TEN ONE'S ) 
+	( ONE'S ) 
+	( HUND ONE'S ) 
+	( TEN ONE'S ) 
+	( TEEN ) 
+	( THOU HUND TEEN ) 
+	( THOU TEEN ) 
+	( HUND TEEN ) 
+	( HUND TEN ) 
+	( THOU HUND TEN ) 
+	( TEN ) 
+	( THOU TEN ) 
+	( ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ) 
+	( ONE ONE ONE ONE ONE ) 
+	( ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ) 
+	( ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ) 
+	( ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE ) 
+	( ONE ONE ONE ONE ONE ONE ONE ONE ONE ) 
+	( ONE ONE ) 
+	( ONE ONE ONE ONE ONE ) 
+	( ONE ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE ONE ONE ) 
+	( ONE ONE ONE ONE ) 
+	( ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ONE ONE ONE ONE ONE'S ) 
+	( ONE ONE ONE ) 
+	( ONE ONE ONE ONE ONE ONE ONE ) 
+	( TEEN ONE ) 
+	( TEEN ONE ONE'S ) 
+	( TEN_ONE ONE TEN_ONE ONE'S ) 
+	( TEN_ONE TEN ONE'S ) 
+	( TEN_ONE TEN ) 
+	( TEN_ONE TEEN ) 
+
+START_TEEN
+	( TEEN TEEN ) 
+	( TEEN TEN ) 
+	( TEEN TEN ONE'S ) 
+
+TEN_ONE
+	( TEN ) 
+	( ONE ) 
+
+THOU
+	( THOU_OPTS thousand ) 
+	( thousand ) 
+
+THOU_OPTS
+	( HUND ) 
+	( HUND_OPTS ) 
+
+HUND
+	( HUND_OPTS hundred ) 
+
+HUND_OPTS
+	( TEN A_ONE ) 
+	( A_ONE ) 
+	( TEEN ) 
+	( TEN ) 
+
+A_ONE
+	( a ) 
+	( an ) 
+	( ONE ) 
+
+
+TEEN
+	( ten ) 
+	( eleven ) 
+	( twelve ) 
+	( thirteen ) 
+	( fourteen ) 
+	( fifteen ) 
+	( sixteen ) 
+	( seventeen ) 
+	( eighteen ) 
+	( nineteen ) 
+
+TEN
+	( twenty ) 
+	( thirty ) 
+	( forty ) 
+	( fifty ) 
+	( sixty ) 
+	( seventy ) 
+	( eighty ) 
+	( ninety ) 
+
+ONE'S
+	( ONE ) 
+	( POS ) 
+ONE'S-1
+	( ONE-1 ) 
+	( POS ) 
+POS
+	( zero's ) 
+	( oh's ) 
+	( one's ) 
+	( two's ) 
+	( three's ) 
+	( four's ) 
+	( five's ) 
+	( six's ) 
+	( seven's ) 
+	( eight's ) 
+	( nine's ) 
+	( fourth ) 
+	( sixth ) 
+	( seventh ) 
+	( eighth ) 
+	( ninth ) 
+
+ONE
+	( one ) 
+	( ONE-1 ) 
+ONE-1
+	( zero ) 
+	( oh ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+;
+
+
+###################################################################
+# DATE-TIME GRAMMAR
+###################################################################
+
+###################################################################
+# DATE-TIME GRAMMAR
+###################################################################
+
+[date_time]
+	( DATE [time_range] ) 
+	( DATE [time_range] [time_range] ) 
+	( DATE ) 
+	( [time_range] DATE ) 
+	( [time_range] [time_range] ) 
+	( [time_range] DATE [time_range] ) 
+	( [time_range] ) 
+	( [time_range] [time_range] ) 
+	( [time_range] [time_range] DATE ) 
+	( [period_mod] DATE ) 
+	( [period_mod] DATE [period_of_day] ) 
+	( [today_relative] ) 
+	( [period_mod] [today_relative] ) 
+	( NEXT [period_of_day] ) 
+	( the NEXT [period_of_day] ) 
+	( [time_range] NEXT [period_of_day] ) 
+	( [time_range] the NEXT [period_of_day] ) 
+	( [time_range] [date_relative] [time_range] ) 
+	( [date_relative] [time_range] ) 
+	( [time_range] the [date_relative] [time_range] ) 
+	( the [date_relative] [time_range] ) 
+	( that [day_of_week] ) 
+	( that [time_range] ) 
+	( [time_range] is fine ) 
+DATE
+	( [date] [period_of_day] ) 
+	( [date] ) 
+	( [day_name] ) 
+NEXT
+	( [d_next] ) 
+	( [d_previous] ) 
+;
+
+[date]
+	( MONTH_DAY YEAR [period_of_day] ) 
+	( ON MONTH_DAY ) 
+	( MONTH_DAY YEAR ) 
+	( ON the MONTH_DAY ) 
+	( the MONTH_DAY [period_of_day] ) 
+	( SELECTOR the MONTH_DAY ) 
+	( SELECTOR ON MONTH_DAY ) 
+	( ON MONTH_DAY [period_of_day] ) 
+	( SELECTOR MONTH_DAY [period_of_day] ) 
+	( SELECTOR MONTH_DAY YEAR [period_of_day] ) 
+	( SELECTOR ON MONTH_DAY YEAR [period_of_day] ) 
+	( MONTH_DAY [period_of_day] ) 
+	( ON the MONTH_DAY YEAR ) 
+	( SELECTOR ON the MONTH_DAY YEAR [period_of_day] ) 
+	( ON MONTH_DAY YEAR [period_of_day] ) 
+	( SELECTOR ON the MONTH_DAY YEAR ) 
+	( ON MONTH_DAY YEAR ) 
+	( SELECTOR the MONTH_DAY [period_of_day] ) 
+	( ON the MONTH_DAY [period_of_day] ) 
+	( ON the MONTH_DAY YEAR [period_of_day] ) 
+	( SELECTOR MONTH_DAY YEAR ) 
+	( MONTH_DAY ) 
+	( SELECTOR the MONTH_DAY YEAR ) 
+	( SELECTOR ON MONTH_DAY YEAR ) 
+	( the MONTH_DAY YEAR [period_of_day] ) 
+	( SELECTOR ON the MONTH_DAY ) 
+	( SELECTOR MONTH_DAY ) 
+	( the MONTH_DAY ) 
+	( SELECTOR ON the MONTH_DAY [period_of_day] ) 
+	( SELECTOR the MONTH_DAY YEAR [period_of_day] ) 
+	( SELECTOR ON MONTH_DAY [period_of_day] ) 
+	( the MONTH_DAY YEAR ) 
+	( DAY_WEEK ) 
+	( a DAY_WEEK ) 
+	( DAY_WEEK OF_MONTH ) 
+	( a DAY_WEEK OF_MONTH ) 
+	( sometime [today_relative] ) 
+	( [today_relative] ) 
+	( DATE_REL OF_MONTH ) 
+	( DATE_REL ) 
+	( the DATE_REL OF_MONTH ) 
+	( the DATE_REL ) 
+	( ON DATE_REL OF_MONTH ) 
+	( ON the DATE_REL ) 
+	( ON the DATE_REL OF_MONTH ) 
+	( ON DATE_REL ) 
+	( SOMETIME [date_relative] ) 
+	( [date_relative] ) 
+	( [date_relative] DAY ) 
+	( sometime [date_relative] DAY ) 
+	( [date_relative] [today_relative] ) 
+	( [date_relative] [holiday] ) 
+	( [holiday] ) 
+SELECTOR
+	( DAY_WEEK ) 
+	( sometime ) 
+SOMETIME
+	( sometime ) 
+	( [anyday] ) 
+DATE_REL
+	( [date_relative] ) 
+	( [day_ordinal] [date_relative] ) 
+	( [day_ordinal] of [date_relative] ) 
+	( [holiday] ) 
+	( [anyday] ) 
+	( [everyday] ) 
+	( last day of ) 
+	( last day ) 
+	( last day of [month_after] ) 
+	( last day [month_after] ) 
+	( [day_of_month] DAY of ) 
+	( [day_of_month] DAY [month_after] ) 
+	( [day_of_month] DAY of [month_after] ) 
+	( [day_of_month] DAY ) 
+	( the [day_ordinal] ) 
+	( [day_ordinal] AND [day_ordinal] ) 
+AND
+	( and ) 
+	( or ) 
+MONTH_DAY
+	( the [day_ordinal] ) 
+	( [month_name] the [day_ordinal] ) 
+	( [month_name] the [day_ordinal] ) 
+	( [month_name] [day_ordinal] ) 
+	( [day_ordinal] day of [month_name] ) 
+	( [day_ordinal] of [month_name] ) 
+	( [day_ordinal] [month_name] ) 
+	( [day_ordinal] day [month_name] ) 
+	( [month_name] [day_number] ) 
+	( [day_number] [month_name] ) 
+DAY
+	( day ) 
+	( [day_of_week] ) 
+DAY_WEEK
+	( A MOD_DAY [day_of_week] OF_WEEK ) 
+	( A MOD_DAY [day_of_week] AT_TIME ) 
+	( ON [day_of_week] OF_WEEK AT_TIME ) 
+	( A MOD_DAY [day_of_week] OF_WEEK AT_TIME ) 
+	( A [day_of_week] ) 
+	( MOD_DAY ON [day_of_week] OF_WEEK AT_TIME ) 
+	( A ON [day_of_week] ) 
+	( A [day_of_week] OF_WEEK ) 
+	( [day_of_week] OF_WEEK ) 
+	( MOD_DAY ON [day_of_week] OF_WEEK ) 
+	( MOD_DAY ON [day_of_week] ) 
+	( A ON [day_of_week] OF_WEEK ) 
+	( A MOD_DAY ON [day_of_week] OF_WEEK AT_TIME ) 
+	( [day_of_week] AT_TIME ) 
+	( A MOD_DAY ON [day_of_week] ) 
+	( [day_of_week] OF_WEEK AT_TIME ) 
+	( MOD_DAY [day_of_week] OF_WEEK AT_TIME ) 
+	( A MOD_DAY ON [day_of_week] AT_TIME ) 
+	( MOD_DAY [day_of_week] OF_WEEK ) 
+	( ON [day_of_week] AT_TIME ) 
+	( A [day_of_week] AT_TIME ) 
+	( MOD_DAY ON [day_of_week] AT_TIME ) 
+	( ON [day_of_week] OF_WEEK ) 
+	( A [day_of_week] OF_WEEK AT_TIME ) 
+	( A MOD_DAY ON [day_of_week] OF_WEEK ) 
+	( A MOD_DAY [day_of_week] ) 
+	( A ON [day_of_week] AT_TIME ) 
+	( MOD_DAY [day_of_week] ) 
+	( ON [day_of_week] ) 
+	( A ON [day_of_week] OF_WEEK AT_TIME ) 
+	( [day_of_week] ) 
+	( MOD_DAY [day_of_week] AT_TIME ) 
+YEAR
+	( YR_PREP [year] ) 
+	( [year] ) 
+YR_PREP
+	( in the year ) 
+	( the year ) 
+ON
+	( date ) 
+	( during ) 
+	( for ) 
+	( on that ) 
+	( on ) 
+	( of ) 
+THE
+	( a ) 
+	( an ) 
+	( the ) 
+OF_MONTH
+	( IN_OF [month_name] ) 
+	( IN_OF A [month_name] ) 
+	( [month_name] ) 
+	( A [month_name] ) 
+	( IN_OF THIS_LAST month ) 
+	( A THIS_LAST month ) 
+	( IN_OF A THIS_LAST month ) 
+	( THIS_LAST month ) 
+	( of the month ) 
+MOD_DAY
+	( [week_after] ) 
+	( EACH ) 
+AT_TIME
+	( at same time ) 
+	( the same time ) 
+	( same time ) 
+	( at the same time ) 
+OF_WEEK
+	( IN_OF A this week ) 
+	( A this week ) 
+	( this week ) 
+	( IN_OF week ) 
+	( IN_OF A week ) 
+	( week ) 
+	( IN_OF this week ) 
+	( A week ) 
+	( IN_OF [date_relative] ) 
+	( IN_OF A [date_relative] ) 
+	( [date_relative] ) 
+	( A [date_relative] ) 
+EACH
+	( any ) 
+	( each ) 
+	( every ) 
+A
+	( a ) 
+	( an ) 
+	( the ) 
+IN_OF
+	( in ) 
+	( of ) 
+THIS_LAST
+	( this ) 
+	( last ) 
+DAY
+	( day ) 
+	( date ) 
+	( [day_name] ) 
+;
+
+[day_of_month]
+	( first ) 
+	( second ) 
+	( third ) 
+	( fourth ) 
+	( fifth ) 
+;
+
+[everyday]
+	( EACH DAY ) 
+	( EACH DAY OF_WEEK ) 
+	( daily ) 
+	( dailies ) 
+	( everyday ) 
+	( [each_day] ) 
+EACH
+	( all ) 
+	( every ) 
+DAY
+	( day ) 
+	( days ) 
+OF_WEEK
+	( of week ) 
+	( of the week ) 
+;
+
+[each_day]
+	( EACH of the DAY ) 
+	( EACH of DAY OF_WEEK ) 
+	( EACH DAY ) 
+	( EACH DAY OF_WEEK ) 
+	( EACH the DAY OF_WEEK ) 
+	( EACH of the DAY OF_WEEK ) 
+	( EACH of DAY ) 
+	( EACH the DAY ) 
+DAY
+	( day ) 
+	( days ) 
+	( date ) 
+	( dates ) 
+EACH
+	( FOR each ) 
+	( each ) 
+	( ORDERED BY ) 
+	( ORDERED ) 
+ORDERED
+	( order ) 
+	( ordered ) 
+	( sort ) 
+	( sorted ) 
+	( arrange ) 
+	( arranged ) 
+BY
+	( by ) 
+	( according ) 
+	( according to ) 
+OF_WEEK
+	( of week ) 
+	( of the week ) 
+FOR
+	( for ) 
+	( on ) 
+;
+
+[anyday]
+	( IN_ON the FIRST_LAST WEEK_MONTH ) 
+	( FIRST_LAST WEEK_MONTH OF_MONTH ) 
+	( WEEK_MONTH ) 
+	( IN_ON the WEEK_MONTH OF_MONTH ) 
+	( the FIRST_LAST WEEK_MONTH ) 
+	( IN_ON WEEK_MONTH ) 
+	( the WEEK_MONTH OF_MONTH ) 
+	( IN_ON the WEEK_MONTH ) 
+	( FIRST_LAST WEEK_MONTH ) 
+	( IN_ON FIRST_LAST WEEK_MONTH ) 
+	( the WEEK_MONTH ) 
+	( IN_ON FIRST_LAST WEEK_MONTH OF_MONTH ) 
+	( IN_ON WEEK_MONTH OF_MONTH ) 
+	( IN_ON the FIRST_LAST WEEK_MONTH OF_MONTH ) 
+	( WEEK_MONTH OF_MONTH ) 
+	( the FIRST_LAST WEEK_MONTH OF_MONTH ) 
+	( any DAY ) 
+	( any DAY OF_WEEK ) 
+DAY
+	( date ) 
+	( dates ) 
+	( day ) 
+	( days ) 
+OF_WEEK
+	( of week ) 
+	( of the week ) 
+FIRST_LAST
+	( first ) 
+	( previous ) 
+	( next ) 
+	( last ) 
+	( following ) 
+	( coming ) 
+WEEK_MONTH
+	( week ) 
+	( month ) 
+IN_ON
+	( in ) 
+	( on ) 
+OF_MONTH
+	( IN_OF [month_name] ) 
+	( [month_name] ) 
+	( IN_OF THIS_NEXT month ) 
+	( THIS_NEXT month ) 
+IN_OF
+	( in ) 
+	( of ) 
+THIS_NEXT
+	( this ) 
+	( last ) 
+	( next ) 
+;
+
+[holiday]
+	( [holiday_name] ) 
+	( [holiday_nameday] ) 
+;
+
+[holiday_name]
+	( HOL ) 
+	( HOL DAY ) 
+HOL
+	( christmas ) 
+	( easter ) 
+	( the fourth of july ) 
+	( fourth of july ) 
+	( new year's eve ) 
+	( new year's ) 
+	( new years eve ) 
+	( new years ) 
+	( new year eve ) 
+	( new year ) 
+	( thanksgiving ) 
+	( april fool's ) 
+	( halloween ) 
+DAY
+	( day ) 
+	( days ) 
+;
+
+[holiday_nameday]
+	( HOL_1 DAY ) 
+HOL_1
+	( independence ) 
+	( labor ) 
+	( memorial ) 
+	( st patrick's ) 
+	( valentine ) 
+	( st valentine's ) 
+	( groundhog ) 
+	( flag ) 
+	( united nations ) 
+	( veterans ) 
+	( martin luther king ) 
+	( presidents' ) 
+	( armed forces ) 
+	( mothers' ) 
+	( fathers' ) 
+	( parent's ) 
+	( columbus ) 
+DAY
+	( day ) 
+	( days ) 
+;
+
+[date_relative]
+	( ON the NEXT ) 
+	( the NEXT ) 
+	( NEXT ) 
+	( ON NEXT ) 
+	( day [day_after] that ) 
+	( THE day [day_after] ) 
+	( THE day [day_after] that ) 
+	( day [day_after] ) 
+	( THE day [day_prior] that ) 
+	( day [day_prior] ) 
+	( day [day_prior] that ) 
+	( THE day [day_prior] ) 
+	( ONE DAY [day_after] ) 
+	( ONE DAY [day_after] that ) 
+	( [week_after] ) 
+	( [week_prior] ) 
+	( [week_this] ) 
+	( [month_after] ) 
+	( [year_after] ) 
+	( [date_offset] ) 
+ON
+	( on ) 
+	( for ) 
+THE
+	( a ) 
+	( the ) 
+NEXT
+	( [d_this] ) 
+	( [d_same] ) 
+	( [d_next] ) 
+	( [d_previous] ) 
+PREVIOUS
+	( previous ) 
+	( preceeding ) 
+	( prior ) 
+	( last ) 
+ONE
+	( one ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+DAY
+	( day ) 
+	( days ) 
+;
+
+[d_this]
+	( this ) 
+;
+
+[d_same]
+	( that same ) 
+	( same ) 
+;
+
+[d_next]
+	( next ) 
+	( following ) 
+	( coming ) 
+;
+
+[d_previous]
+	( previous ) 
+	( preceeding ) 
+	( prior ) 
+	( last ) 
+;
+
+[date_offset]
+	( [day_offset] ) 
+	( [week_offset] ) 
+;
+
+[day_offset]
+	( [number] DAY OFFSET ) 
+	( in [number] DAY ) 
+DAY
+	( day ) 
+	( days ) 
+OFFSET
+	( [days_after] ) 
+	( [days_prior] ) 
+;
+
+[week_offset]
+	( [weeks_after] ) 
+;
+
+[weeks_after]
+	( in [number] weeks ) 
+	( [number] weeks LATER ) 
+LATER
+	( later ) 
+	( after that ) 
+	( after ) 
+;
+
+[days_after]
+	( later ) 
+	( after that ) 
+	( after ) 
+	( from now ) 
+;
+
+[days_prior]
+	( before ) 
+	( prior to ) 
+	( earlier ) 
+;
+
+[month_after]
+	( NEXT month ) 
+NEXT
+	( next ) 
+	( coming ) 
+	( following ) 
+;
+
+[year_after]
+	( of next year ) 
+	( next year ) 
+;
+
+[week_this]
+	( this week ) 
+;
+
+[week_after]
+	( in ONE week ) 
+	( ONE week later ) 
+	( NEXT week ) 
+	( the NEXT week ) 
+	( a week AFTER ) 
+	( after a week ) 
+	( after about a week ) 
+	( the week after ) 
+	( ONE week from ) 
+ONE
+	( one ) 
+	( a ) 
+NEXT
+	( next ) 
+	( coming ) 
+	( following ) 
+AFTER
+	( after ) 
+	( afterwards ) 
+;
+
+[week_prior]
+	( THE week before that ) 
+	( THE week before ) 
+	( the LAST week ) 
+THE
+	( a ) 
+	( the ) 
+LAST
+	( last ) 
+	( previous ) 
+;
+
+[day_after]
+	( after ) 
+	( afterwards ) 
+	( from ) 
+;
+
+[day_prior]
+	( before ) 
+	( prior to ) 
+;
+
+[time_range]
+	( [time_duration] ) 
+	( [time_spec] ) 
+	( ANYTIME [after] [start_time] DAY_PERIOD ) 
+	( ANYTIME [after] I_SAY [start_time] ) 
+	( ANYTIME [after] I_SAY [start_time] DAY_PERIOD ) 
+	( ANYTIME [after] [start_time] ) 
+	( START at [start_time] AND ) 
+	( START [start_time] [after] ) 
+	( START at I_SAY [start_time] [after] ) 
+	( START I_SAY [start_time] AND ) 
+	( START [start_time] AND [after] ) 
+	( START [start_time] AND ) 
+	( START at [start_time] [after] ) 
+	( START at [start_time] AND [after] ) 
+	( START [start_time] ) 
+	( START I_SAY [start_time] AND [after] ) 
+	( START at [start_time] ) 
+	( START I_SAY [start_time] ) 
+	( START at I_SAY [start_time] ) 
+	( START at I_SAY [start_time] AND [after] ) 
+	( START I_SAY [start_time] [after] ) 
+	( START at I_SAY [start_time] AND ) 
+	( at [start_time] AND [after] ) 
+	( at I_SAY [start_time] AND [after] ) 
+	( I_SAY [start_time] AND [after] ) 
+	( [start_time] AND [after] ) 
+	( ANYTIME BEFORE DAY_TIME ) 
+	( BEFORE DAY_TIME ) 
+	( END [end_time] AND [before] ) 
+	( END at [end_time] AND [before] ) 
+	( [end_time] AND [before] ) 
+	( END I_SAY [end_time] AND [before] ) 
+	( at I_SAY [end_time] AND [before] ) 
+	( END at I_SAY [end_time] AND [before] ) 
+	( at [end_time] AND [before] ) 
+	( I_SAY [end_time] AND [before] ) 
+	( END I_SAY [end_time] ) 
+	( END [end_time] ) 
+	( END at I_SAY [end_time] ) 
+	( END at [end_time] ) 
+	( START [start_time] TO [end_time] ) 
+	( START at [start_time] TO [end_time] ) 
+	( at [start_time] TO [end_time] ) 
+	( [start_time] TO [end_time] ) 
+	( between [start_time] and [end_time] ) 
+TO
+	( to ) 
+	( going to ) 
+	( until ) 
+	( til ) 
+	( till ) 
+ANYTIME
+	( anytime ) 
+	( any time ) 
+	( any times ) 
+	( sometime ) 
+	( some time ) 
+	( some times ) 
+	( anything ) 
+DAY_TIME
+	( [end_time] ) 
+	( [on_day] [end_time] ) 
+	( [end_time] ON THE [on_day] [period_of_day] ) 
+	( [end_time] THE [on_day] [period_of_day] ) 
+	( [end_time] [on_day] [period_of_day] ) 
+	( [end_time] ON [on_day] [period_of_day] ) 
+DAY_PERIOD
+	( ON THE [on_day] [period_of_day] ) 
+	( THE [on_day] [period_of_day] ) 
+	( ON [on_day] [period_of_day] ) 
+	( [on_day] [period_of_day] ) 
+AND
+	( and or ) 
+	( and ) 
+	( or ) 
+ON
+	( of ) 
+	( on ) 
+THE
+	( a ) 
+	( an ) 
+	( the ) 
+END
+	( end ) 
+	( ends ) 
+	( ending ) 
+START
+	( from ) 
+	( from like ) 
+	( start ) 
+	( starts ) 
+	( starting ) 
+	( begin ) 
+	( begins ) 
+	( beginning ) 
+BEFORE
+	( [before] ) 
+	( until ) 
+	( 'til ) 
+	( til ) 
+	( till ) 
+	( by ) 
+I_SAY
+	( SAY ) 
+	( I'D_WE SAY ) 
+I'D_WE
+	( i'd ) 
+	( we'd ) 
+	( I_WE WILL_WOULD ) 
+	( WILL_WOULD ) 
+	( I_WE ) 
+	( let's ) 
+	( let me ) 
+	( let us me ) 
+	( let us ) 
+	( let ) 
+I_WE
+	( i ) 
+	( we ) 
+	( you ) 
+WILL_WOULD
+	( will ) 
+	( would ) 
+SAY
+	( say ) 
+	( said ) 
+;
+
+[on_day]
+	( [day_of_week] DAY_MONTH_SPEC ) 
+	( [day_of_week] ) 
+	( DAY_MONTH_SPEC ) 
+DAY_MONTH_SPEC
+	( [month_name] [day_ordinal] YEAR ) 
+	( [month_name] the [day_ordinal] ) 
+	( [month_name] [day_ordinal] ) 
+	( [month_name] the [day_ordinal] YEAR ) 
+	( [day_ordinal] [month_name] YEAR ) 
+	( the [day_ordinal] [month_name] YEAR ) 
+	( [day_ordinal] of [month_name] YEAR ) 
+	( the [day_ordinal] [month_name] ) 
+	( [day_ordinal] of [month_name] ) 
+	( [day_ordinal] [month_name] ) 
+	( the [day_ordinal] of [month_name] YEAR ) 
+	( the [day_ordinal] of [month_name] ) 
+	( [month_name] [day_number] ) 
+	( [day_number] [month_name] ) 
+YEAR
+	( YR_PREP [year] ) 
+	( [year] ) 
+YR_PREP
+	( in the year ) 
+	( the year ) 
+;
+
+[year]
+	( nineteen DECADE ONE ) 
+	( DECADE ONE ) 
+	( DECADE ) 
+	( nineteen DECADE ) 
+	( two thousand ONE ) 
+	( two thousand ) 
+	( two thousand and ONE ) 
+	( two thousand and ) 
+	( twenty oh ONE ) 
+DECADE
+	( seventy ) 
+	( eighty ) 
+	( ninety ) 
+ONE
+	( one ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+;
+
+[day_number]
+	( ONE ) 
+	( ten ) 
+	( TEEN ) 
+	( twenty ) 
+	( twenty ONE ) 
+	( thirty ) 
+	( thirty one ) 
+ONE
+	( one ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+TEEN
+	( eleven ) 
+	( twelve ) 
+	( thirteen ) 
+	( fourteen ) 
+	( fifteen ) 
+	( sixteen ) 
+	( seventeen ) 
+	( eighteen ) 
+	( nineteen ) 
+;
+
+[day_ordinal]
+	( SMALL_ORD ) 
+	( tenth ) 
+	( TEEN_ORD ) 
+	( twentieth ) 
+	( twenty SMALL_ORD ) 
+	( thirtieth ) 
+	( thirty first ) 
+SMALL_ORD
+	( first ) 
+	( second ) 
+	( third ) 
+	( fourth ) 
+	( fifth ) 
+	( sixth ) 
+	( seventh ) 
+	( eighth ) 
+	( ninth ) 
+TEEN_ORD
+	( eleventh ) 
+	( twelfth ) 
+	( thirteenth ) 
+	( fourteenth ) 
+	( fifteenth ) 
+	( sixteenth ) 
+	( seventeenth ) 
+	( eighteenth ) 
+	( nineteenth ) 
+;
+
+[month_name]
+	( NAME ) 
+	( THE_MONTH NAME ) 
+NAME
+	( january ) 
+	( february ) 
+	( march ) 
+	( april ) 
+	( may ) 
+	( june ) 
+	( july ) 
+	( august ) 
+	( september ) 
+	( october ) 
+	( november ) 
+	( december ) 
+THE_MONTH
+	( the month of ) 
+	( the month ) 
+	( month ) 
+	( month of ) 
+;
+
+[start_time]
+	( [time_spec] ) 
+;
+
+[end_time]
+	( [time_spec] ) 
+;
+
+[time_spec]
+	( at [time] ) 
+	( [time] ) 
+	( [time_of_day] ) 
+	( [aprox_time] ) 
+	( [time_relative] ) 
+	( [time_duration] ) 
+;
+
+[aprox_time]
+	( at APPROX [time] ) 
+	( at APPROX [time] AS_POSS ) 
+	( APPROX [time] ) 
+	( APPROX [time] AS_POSS ) 
+	( APPROX [time_of_day] ) 
+APPROX
+	( JUST AROUND_ABOUT ) 
+	( AROUND_ABOUT ) 
+	( SOMETIME AROUND_ABOUT ) 
+	( AROUND_ABOUT ) 
+	( one AROUND_ABOUT ) 
+	( CLOSE to ) 
+	( as CLOSE to ) 
+	( CLOSE ) 
+	( as CLOSE ) 
+	( at approximately ) 
+	( approximately ) 
+	( in the vicinity of ) 
+	( in vicinity ) 
+	( in the vicinity ) 
+	( in vicinity of ) 
+AROUND_ABOUT
+	( around ) 
+	( 'round ) 
+	( about ) 
+	( 'bout ) 
+CLOSE
+	( close ) 
+	( closest ) 
+	( closer ) 
+	( near ) 
+	( nearer ) 
+	( nearest ) 
+SOMETIME
+	( sometime ) 
+	( somewhere ) 
+AS_POSS
+	( possible ) 
+	( as possible ) 
+JUST
+	( just ) 
+	( SAY ) 
+	( I'D_WE SAY ) 
+I'D_WE
+	( i'd ) 
+	( we'd ) 
+	( I_WE WILL_WOULD ) 
+	( WILL_WOULD ) 
+	( I_WE ) 
+	( let's ) 
+	( let me ) 
+	( let us me ) 
+	( let us ) 
+	( let ) 
+I_WE
+	( i ) 
+	( we ) 
+	( you ) 
+WILL_WOULD
+	( will ) 
+	( would ) 
+SAY
+	( say ) 
+	( said ) 
+;
+
+[time]
+	( [hour] MIN [time_of_day] ) 
+	( [hour] MIN ) 
+	( [hour] ) 
+	( [hour] [time_of_day] ) 
+	( [hour] o'clock [time_of_day] ) 
+	( [hour] o'clock ) 
+	( BEFORE TIME [time_of_day] ) 
+	( TIME_PERIOD BEFORE TIME o'clock ) 
+	( BEFORE TIME ) 
+	( BEFORE TIME o'clock [time_of_day] ) 
+	( BEFORE TIME o'clock ) 
+	( TIME_PERIOD BEFORE TIME [time_of_day] ) 
+	( TIME_PERIOD BEFORE TIME o'clock [time_of_day] ) 
+	( TIME_PERIOD BEFORE TIME ) 
+	( [noon] ) 
+	( [midnight] ) 
+	( [twenty_four] ) 
+TIME_PERIOD
+	( [minute_rel] ) 
+	( [minute_rel] MINUTE ) 
+	( [quarter] ) 
+	( a [quarter] ) 
+	( [half] ) 
+	( a [half] ) 
+BEFORE
+	( [before] ) 
+	( [after] ) 
+TIME
+	( [hour] MIN ) 
+	( [hour] ) 
+	( [noon] ) 
+	( [midnight] ) 
+MIN
+	( [minute] ) 
+MINUTE
+	( minute ) 
+	( minutes ) 
+;
+
+[twenty_four]
+	( oh [hour] MIN ) 
+	( oh [hour] MIN hours ) 
+	( [hour] MIN hours ) 
+MIN
+	( hundred ) 
+	( [minute] ) 
+;
+
+[noon]
+	( noon ) 
+	( twelve noon ) 
+	( noontime ) 
+	( noon time ) 
+;
+
+[midnight]
+	( midnight ) 
+;
+
+[after]
+	( JUST AFTER ) 
+	( AFTER ) 
+JUST
+	( at just ) 
+	( just ) 
+	( shortly ) 
+AFTER
+	( after ) 
+	( later than ) 
+	( afterwards ) 
+	( NOT BEFORE that ) 
+	( NOT BEFORE ) 
+	( past ) 
+BEFORE
+	( before ) 
+	( sooner ) 
+	( sooner than ) 
+	( earlier ) 
+	( earlier than ) 
+	( prior to ) 
+NOT
+	( not ) 
+	( no ) 
+;
+
+[before]
+	( before ) 
+	( JUST before ) 
+	( sooner than ) 
+	( prior to ) 
+	( JUST prior to ) 
+	( earlier than ) 
+	( JUST earlier than ) 
+	( not AFTER that ) 
+	( not AFTER ) 
+	( NOT later than that ) 
+	( NOT later than ) 
+JUST
+	( at just ) 
+	( just ) 
+	( shortly ) 
+AFTER
+	( after ) 
+	( afterwards ) 
+	( past ) 
+NOT
+	( not ) 
+	( no ) 
+;
+
+
+[quarter]
+	( quarter ) 
+;
+
+[half]
+	( half ) 
+;
+
+[minute_rel]
+	( [minute] ) 
+;
+
+[minute]
+	( T_TEN ) 
+	( T_TEN T_ONE ) 
+	( TEEN ) 
+	( ZERO T_ONE ) 
+T_ONE
+	( one ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+T_TEN
+	( twenty ) 
+	( thirty ) 
+	( forty ) 
+	( fifty ) 
+TEEN
+	( ten ) 
+	( eleven ) 
+	( twelve ) 
+	( thirteen ) 
+	( fourteen ) 
+	( fifteen ) 
+	( sixteen ) 
+	( seventeen ) 
+	( eighteen ) 
+	( nineteen ) 
+ZERO
+	( zero ) 
+	( oh ) 
+;
+
+[time_of_day]
+	( in [period_of_day] ) 
+	( [period_mod] in [period_of_day] ) 
+	( SOMETIME [period_mod] in the [period_mod] [period_of_day] ) 
+	( in [period_mod] [period_of_day] ) 
+	( [period_mod] in [period_mod] [period_of_day] ) 
+	( SOMETIME the [period_of_day] ) 
+	( SOMETIME [period_mod] [period_of_day] ) 
+	( SOMETIME [period_mod] the [period_mod] [period_of_day] ) 
+	( [period_mod] in the [period_mod] [period_of_day] ) 
+	( SOMETIME [period_of_day] ) 
+	( SOMETIME [period_mod] in [period_of_day] ) 
+	( SOMETIME in the [period_of_day] ) 
+	( SOMETIME [period_mod] [period_mod] [period_of_day] ) 
+	( [period_mod] the [period_mod] [period_of_day] ) 
+	( SOMETIME in the [period_mod] [period_of_day] ) 
+	( SOMETIME in [period_of_day] ) 
+	( SOMETIME [period_mod] in the [period_of_day] ) 
+	( SOMETIME in [period_mod] [period_of_day] ) 
+	( SOMETIME the [period_mod] [period_of_day] ) 
+	( [period_mod] in the [period_of_day] ) 
+	( the [period_mod] [period_of_day] ) 
+	( SOMETIME [period_mod] in [period_mod] [period_of_day] ) 
+	( [period_mod] [period_mod] [period_of_day] ) 
+	( the [period_of_day] ) 
+	( [period_of_day] ) 
+	( in the [period_of_day] ) 
+	( [period_mod] [period_of_day] ) 
+	( SOMETIME [period_mod] the [period_of_day] ) 
+	( in the [period_mod] [period_of_day] ) 
+	( [period_mod] the [period_of_day] ) 
+
+SOMETIME
+	( sometime ) 
+	( some time ) 
+	( anytime ) 
+	( any time ) 
+;
+
+[hour]
+	( an ) 
+	( one ) 
+	( a couple of ) 
+	( two ) 
+	( three ) 
+	( four ) 
+	( five ) 
+	( six ) 
+	( seven ) 
+	( eight ) 
+	( nine ) 
+	( ten ) 
+	( eleven ) 
+	( twelve ) 
+	( noon ) 
+;
+
+[day_of_week]
+	( [day_name] ) 
+	( [weekend] ) 
+	( [weekday] ) 
+;
+
+[day_name]
+	( monday ) 
+	( tuesday ) 
+	( wednesday ) 
+	( thursday ) 
+	( friday ) 
+	( saturday ) 
+	( sunday ) 
+	( mondays ) 
+	( tuesdays ) 
+	( wednesdays ) 
+	( thursdays ) 
+	( fridays ) 
+	( saturdays ) 
+	( sundays ) 
+	( monday's ) 
+	( tuesday's ) 
+	( wednesday's ) 
+	( thursday's ) 
+	( friday's ) 
+	( saturday's ) 
+	( sunday's ) 
+;
+
+[weekend]
+	( weekend ) 
+	( weekends ) 
+;
+
+[weekday]
+	( MIDDLE of week ) 
+	( MIDDLE of THE week ) 
+	( MIDDLE week ) 
+	( MIDDLE THE week ) 
+	( midweek ) 
+	( weekday ) 
+	( weekdays ) 
+	( MONDAY AND TUESDAY AND WEDNESDAY AND THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY WEDNESDAY AND THURSDAY FRIDAY ) 
+	( MONDAY AND TUESDAY AND WEDNESDAY THURSDAY FRIDAY ) 
+	( MONDAY TUESDAY AND WEDNESDAY THURSDAY FRIDAY ) 
+	( MONDAY AND TUESDAY AND WEDNESDAY AND THURSDAY FRIDAY ) 
+	( MONDAY AND TUESDAY AND WEDNESDAY THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY WEDNESDAY THURSDAY FRIDAY ) 
+	( MONDAY AND TUESDAY WEDNESDAY AND THURSDAY FRIDAY ) 
+	( MONDAY AND TUESDAY WEDNESDAY THURSDAY AND FRIDAY ) 
+	( MONDAY AND TUESDAY WEDNESDAY AND THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY AND WEDNESDAY AND THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY WEDNESDAY THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY AND WEDNESDAY THURSDAY AND FRIDAY ) 
+	( MONDAY TUESDAY WEDNESDAY AND THURSDAY AND FRIDAY ) 
+	( MONDAY AND TUESDAY WEDNESDAY THURSDAY FRIDAY ) 
+	( MONDAY TUESDAY AND WEDNESDAY AND THURSDAY FRIDAY ) 
+
+THE
+	( a ) 
+	( the ) 
+
+MIDDLE
+	( mid ) 
+	( middle ) 
+
+MONDAY
+	( monday ) 
+	( mondays ) 
+
+TUESDAY
+	( tuesday ) 
+	( tuesdays ) 
+
+WEDNESDAY
+	( wednesday ) 
+	( wednesdays ) 
+
+THURSDAY
+	( thursday ) 
+	( thursdays ) 
+
+FRIDAY
+	( friday ) 
+	( fridays ) 
+
+AND
+	( and or ) 
+	( and ) 
+	( or ) 
+;
+
+[today_relative]
+	( today ) 
+	( today's ) 
+	( tonight ) 
+	( this [time_range] ) 
+	( tomorrow ) 
+	( tomorrow's ) 
+	( yesterday ) 
+	( yesterday's ) 
+;
+
+[period_mod]
+	( [early] ) 
+	( [late] ) 
+	( [mid] ) 
+;
+
+[period_of_day]
+	( [am] ) 
+	( [pm] ) 
+	( [morning] ) 
+	( [afternoon] ) 
+	( [evening] ) 
+	( [night] ) 
+	( [early_day] ) 
+	( [late_day] ) 
+	( [mid_day] ) 
+	( [anytime] ) 
+;
+
+[am]
+	( a_m ) 
+	( a m ) 
+;
+
+[pm]
+	( p_m ) 
+	( pm ) 
+	( p m ) 
+;
+
+[morning]
+	( morning ) 
+	( mornings ) 
+;
+
+[afternoon]
+	( afternoon ) 
+	( after noon ) 
+	( afternoons ) 
+;
+
+[evening]
+	( evening ) 
+	( evenings ) 
+;
+
+[night]
+	( night ) 
+	( nights ) 
+;
+
+[early_day]
+	( early in the day ) 
+	( in the early part of the day ) 
+	( the early part of the day ) 
+	( at the beginning of the day ) 
+	( the beginning of the day ) 
+	( at beginning of the day ) 
+	( beginning of the day ) 
+;
+
+[late_day]
+	( late in the day ) 
+	( late day ) 
+	( late in day ) 
+	( at end of the day ) 
+	( at the end of the day ) 
+	( end of the day ) 
+	( the end of the day ) 
+;
+
+[mid_day]
+	( midday ) 
+	( mid day ) 
+	( the middle of the day ) 
+	( in middle of the day ) 
+	( in middle part of the day ) 
+	( in the middle of the day ) 
+	( middle part of the day ) 
+	( middle of the day ) 
+	( in the middle part of the day ) 
+	( the middle part of the day ) 
+;
+
+[anytime]
+	( any TIME ) 
+	( any_time ) 
+	( anytime ) 
+	( all TIME ) 
+	( regardless of time ) 
+
+TIME
+	( time ) 
+	( times ) 
+;
+
+[early]
+	( MOD early ) 
+	( early ) 
+MOD
+	( very ) 
+	( real ) 
+	( really ) 
+;
+
+[late]
+	( MOD late ) 
+	( late ) 
+MOD
+	( very ) 
+	( real ) 
+	( really ) 
+;
+
+[mid]
+	( mid ) 
+	( middle of the ) 
+	( in the middle of the ) 
+	( the middle of the ) 
+	( in middle of the ) 
+;
+
+[time_relative]
+	( [now] ) 
+	( [time_relative_before] ) 
+	( [time_relative_after] ) 
+;
+
+[now]
+	( now ) 
+	( right now ) 
+	( as soon as possible ) 
+	( immediately ) 
+	( right away ) 
+;
+
+[time_relative_before]
+	( [duration] ago ) 
+;
+
+[time_relative_after]
+	( in [duration] ) 
+;
+
+[duration]
+	( [hour] hour AND_MINUTES ) 
+	( [hour] hour ) 
+	( [hour] hours AND_MINUTES ) 
+	( [hour] hours ) 
+	( [minute] minutes ) 
+AND_MINUTES
+	( [minute] ) 
+	( [minute] MINUTE ) 
+	( and [minute] ) 
+	( and [minute] MINUTE ) 
+	( and [d_quarter] ) 
+	( a [d_quarter] ) 
+	( and a [d_quarter] ) 
+	( [d_quarter] ) 
+	( [d_half] ) 
+	( and [d_half] ) 
+	( and a [d_half] ) 
+	( a [d_half] ) 
+MINUTE
+	( minute ) 
+	( minutes ) 
+;
+
+[d_half]
+	( half ) 
+;
+
+[d_quarter]
+	( quarter ) 
+;
+
+[time_duration]
+	( for [duration] ) 
+	( A_PERIOD_OF [duration] ) 
+	( [duration] ) 
+	( for A_PERIOD_OF [duration] ) 
+	( for [whole_day] ) 
+	( [whole_day] ) 
+
+A_PERIOD_OF
+	( a period of ) 
+	( ) 
+	( just around ) 
+	( around ) 
+	( just ) 
+	( about ) 
+	( approximately ) 
+;
+
+[whole_day]
+	( whole day ) 
+	( the whole day ) 
+	( all day ) 
+	( all day long ) 
+;
+
+###################################################################
+# DTMF keys
+###################################################################
+[DTMF_KEY]
+	( [DTMF_ZERO] ) 
+	( [DTMF_ONE] ) 
+	( [DTMF_TWO] ) 
+	( [DTMF_THREE] ) 
+	( [DTMF_FOUR] ) 
+	( [DTMF_FIVE] ) 
+	( [DTMF_SIX] ) 
+	( [DTMF_SEVEN] ) 
+	( [DTMF_EIGHT] ) 
+	( [DTMF_NINE] ) 
+	( [DTMF_POUND] ) 
+	( [DTMF_STAR] ) 
+;
+
+[DTMF_ZERO]
+	( dtmf_zero ) 
+;
+[DTMF_ONE]
+	( dtmf_one ) 
+;
+[DTMF_TWO]
+	( dtmf_two ) 
+;
+[DTMF_THREE]
+	( dtmf_three ) 
+;
+[DTMF_FOUR]
+	( dtmf_four ) 
+;
+[DTMF_FIVE]
+	( dtmf_five ) 
+;
+[DTMF_SIX]
+	( dtmf_six ) 
+;
+[DTMF_SEVEN]
+	( dtmf_seven ) 
+;
+[DTMF_EIGHT]
+	( dtmf_eight ) 
+;
+[DTMF_NINE]
+	( dtmf_nine ) 
+;
+[DTMF_POUND]
+	( dtmf_pound ) 
+;
+[DTMF_STAR]
+	( dtmf_star ) 
+;
+
