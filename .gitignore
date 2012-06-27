@@ -3,4 +3,5 @@ bin
 *.a
 *.mak
 *.o
+*.swp
 workspace/
