@@ -2,3 +2,4 @@ bin
 config.*
 *.a
 *.mak
+*.o
