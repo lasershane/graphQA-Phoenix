@@ -3,3 +3,4 @@ config.*
 *.a
 *.mak
 *.o
+workspace/
