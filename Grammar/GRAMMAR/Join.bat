@@ -1,2 +1,4 @@
-perl cat.pl Master.forms Generic.forms ProfessorQueries.forms
-perl cat.pl Master.gra Generic.gra ProfessorQueries.gra
+perl C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\cat.pl C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\Master.forms C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\Generic.forms C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\ProfessorQueries.forms
+
+
+perl C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\cat.pl C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\Master.gra C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\Generic.gra C:\Users\Shane\Documents\Programming\CMUQA\RavenclawOlympus\Tools\logios\Resources\Grammar\GRAMMAR\ProfessorQueries.gra

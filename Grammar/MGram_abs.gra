@@ -1805,125 +1805,162 @@ A_PERIOD_OF
 ;
 
 # 
-# CMU QA Receptionist Specific segments
+# CMU GraphQA Receptionist Specific segments
 # 
 # 
 # 
-# Shane Smith
+# Written by Shane Smith
+#
 # 
-# 
+#
 ###################################################################
 
+
+[WhatQuestion]
+	(what [Linking] [InfoQuery])
+	(what [Linking] [LocationQuery])
+;
+
+[WhoQuestion]
+	(who [Linking] [PersonQuery])
+;
+
+[WhereQuestion]
+	(where [Linking] [LocationQuery])
+;
+
+[Linking]
+	(is)
+	(are)
+	(was)
+	(were)
+	([AllLinking])
+;
+[AllLinking]
+	(may)
+	(might)
+	(must)
+	(be) 
+	(being) 
+	(been)
+	(am)
+	(do)
+	(does)
+	(did)
+	(should)
+	(could)
+	(would)
+	(have)
+	(had)
+	(has)
+	(will)
+	(can)
+	(shall)
+;
+
+[Person]
+	([Professor])
+	([Staff])
+	([Student])
+;
+
+[Staff]
+	(abele nicholas)
+	(nicholas abele)
+	(abele)
+	(nicholas)
+
+;
+
+[Student]
+	(smith shane)
+	(shane smith)
+	(shane)
+	(smith)
+
+	(montgomery jack)
+	(jack montgomery)
+	(jack)
+	(montgomery)
+;
+
 [Professor]
-	(*TITLE NAME *'s)
-
-TITLE
-	(professor)
-	(dr *.)
-
-NAME
-	(ERIC_NYBERG)
-	(ALAN_BLACK)
-
-ERIC_NYBERG
-	(eric *nyberg)
+	(nyberg eric)
+	(eric nyberg)
+	(eric)
 	(nyberg)
-
-ALAN_BLACK
-	(alan *black)
+  
+	(black alan)
+	(alan black)
+	(alan)
 	(black)
 
 ;
 
-[OfficeQuery]
-	(where is [Professor] *office)
-	(*_i_want *the office for [Professor])
-	(*find *the office *for [Professor])
-	(does [Professor] have an office)
-	(where can i find [professor] *office)
-	(do you know where [professor] *office is *located)
-	([_can_you] help me find [professor] *office)
-	(find [Professor] office)
+
+#Info
+[Info]
+	([_Phone])
+	([_Email])
+	([_Department])
+	([_Publication])
+	([_Research])
 ;
 
-[DescriptionQuery]
-	(who is [Professor])
-	(*[_can_you] tell me about [Professor])
-	(*what do you know about [Professor])
-	(*what [_can_you] tell me about [Professor])
+#Relationship
+[Rel]
+	(advisor)
+	(advisee)
+	(student)
+	(professor)
 ;
 
-[PhoneQuery]
-	(*[_i_want] *to call [Professor])
-	(*[_i_want] PROF_PHONE)
-	(what is PROF_PHONE)
-	(do you know PROF_PHONE)
-	(FIND PROF_PHONE *for *me)
-	([_can_you] *help *me FIND PROF_PHONE)
-
-PROF_PHONE
-	([Professor] PHONE)
-	(*the PHONE FOR [Professor])
-
-FIND
-	(get *me)
-	(find *me)
-	(retrieve)
-	(search *for)
-	(give *me)
-	(locate)
-	(tell *me)
-FOR
-	(for)
-	(of)
-	(to)
-PHONE
+[_Phone]
 	(phone *number)
 	(number)
-	(telephone *number)
-	(office phone *number)
+;
+[_Office]
+	(office)
+	(sit)
 ;
 
-[EmailQuery]
-	(what is PROF_EMAIL)
-	(*[_i_want] PROF_EMAIL)
-	(*[_i_want] *to EMAIL [Professor])
-	(FIND *me PROF_EMAIL)
-	
-
-PROF_EMAIL
-	(*the EMAIL FOR [Professor])
-	([Professor] EMAIL)
-FIND
-	(get)
-	(find)
-	(retrieve)
-	(search *for)
-	(give)
-	(locate)
-	(tell)
-
-FOR
-	(for)
-	(of)
-	(to)
-EMAIL
+[_Email]
 	(email *address)
-	(e-mail *address)
 ;
-
-[DepartmentQuery]
-	(dept)
+[_Department]
+	(department)
 ;
-
-[PublicationQuery]
-	(pub)
+[_Publication]
+	(publication)
+	(publications)
+	(published *works *papers)
 ;
-[ResearchQuery]
+[_Research]
 	(research)
 ;
+[Building]
+	(building)
+	(gates)
+;
+[Location]
+	([_Office])
+	([Building])
+;          
+[Node]
+	([Location])
+	([Person])
+; 
+#Query
+[InfoQuery]
+	([Node] 's [Info])
+;
 
+[PersonQuery]
+	(what [Person])
+	(who *[Linking] [Person])
+;
 
-
-
-
+[LocationQuery]
+	([Location])
+	([Person] 's [Location])
+;
