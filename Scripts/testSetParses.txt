@@ -1,0 +1,190 @@
+#People's information
+Where is Dr. Nyberg's office?
+Question
+[WhereQuestion] ( WHERE [Linking] ( IS ) [LocationQuery] ( [Person] ( [Professor] ( NYBERG ) ) 'S [Location] ( [_Office] ( OFFICE ) ) ) ) 
+
+Question
+[WhereQuestion].[Linking].[LocationQuery].[Person].[Professor].NYBERG [Location].Office
+
+Where is the office of Dr. Alan Black?
+Verbs
+[Linking] ( IS ) 
+GeneralTypes
+[Location] ( [_Office] ( OFFICE ) ) 
+[Person] ( [Professor] ( ALAN BLACK ) ) 
+
+Verbs
+[Linking].
+GeneralTypes
+[Location].Office 
+[Person].[Professor].ALAN BLACK
+
+Where does Alan Black sit?
+Verbs
+[Linking] ( [AllLinking] ( DOES ) ) 
+GeneralTypes
+[Person] ( [Professor] ( ALAN BLACK ) ) 
+[Location] ( [_Office] ( SIT ) ) 
+
+Verbs
+[Linking].[AllLinking].DOES 
+GeneralTypes
+[Person].[Professor].ALAN BLACK 
+[Location].Office
+
+Who is Dr. Nyberg?
+Query
+[PersonQuery] ( WHO [Linking] ( IS ) [Person] ( [Professor] ( NYBERG ) ) ) 
+
+Query
+[PersonQuery].[Linking].[Person].[Professor].NYBERG
+
+What's the email of Alan Black?
+GeneralTypes
+[Info] ( [_Email] ( EMAIL ) ) 
+[Person] ( [Professor] ( ALAN BLACK ) ) 
+
+GeneralTypes
+[Info].Email 
+[Person].[Professor].ALAN BLACK
+
+What is Alan Black's Email?
+Question
+[WhatQuestion] ( WHAT [Linking] ( IS ) [InfoQuery] ( [Node] ( [Person] ( [Professor] ( ALAN BLACK ) ) ) 'S [Info] ( [_Email] ( EMAIL ) ) ) ) 
+
+Question
+[WhatQuestion].[Linking].[InfoQuery].[Node].[Person].[Professor].ALAN BLACK [Info].Email
+
+What's the phone number for Alan Black?
+GeneralTypes
+[Info] ( [_Phone] ( PHONE NUMBER ) ) 
+[Person] ( [Professor] ( ALAN BLACK ) ) 
+
+GeneralTypes
+[Info].Phone 
+[Person].[Professor].ALAN BLACK
+
+What is Dr. Nyberg's Phone Number?
+Question
+[WhatQuestion] ( WHAT [Linking] ( IS ) [InfoQuery] ( [Node] ( [Person] ( [Professor] ( NYBERG ) ) ) 'S [Info] ( [_Phone] ( PHONE NUMBER ) ) ) ) 
+
+Question
+[WhatQuestion].[Linking].[InfoQuery].[Node].[Person].[Professor].NYBERG [Info].Phone
+
+#Professor's department
+What department is Dr. Nyberg in?
+InfoFunc
+[_Department] ( DEPARTMENT ) 
+Verbs
+[Linking] ( IS ) 
+GeneralTypes
+[Person] ( [Professor] ( NYBERG ) ) 
+
+InfoFunc
+Department 
+Verbs
+[Linking].
+GeneralTypes
+[Person].[Professor].NYBERG
+
+To what department does Dr. Nyberg belong?
+InfoFunc
+[_Department] ( DEPARTMENT ) 
+Verbs
+[Linking] ( [AllLinking] ( DOES ) ) 
+GeneralTypes
+[Person] ( [Professor] ( NYBERG ) ) 
+
+InfoFunc
+Department 
+Verbs
+[Linking].[AllLinking].DOES 
+GeneralTypes
+[Person].[Professor].NYBERG
+
+What is Dr. Nyberg's department?
+Question
+[WhatQuestion] ( WHAT [Linking] ( IS ) [InfoQuery] ( [Node] ( [Person] ( [Professor] ( NYBERG ) ) ) 'S [Info] ( [_Department] ( DEPARTMENT ) ) ) ) 
+
+Question
+[WhatQuestion].[Linking].[InfoQuery].[Node].[Person].[Professor].NYBERG [Info].Department
+
+#Buildings
+Where is the Gates buliding?
+Verbs
+[Linking] ( IS ) 
+Query
+[LocationQuery] ( [Location] ( [Building] ( GATES ) ) ) 
+
+Verbs
+[Linking].
+Query
+[LocationQuery].[Location].[Building].GATES
+
+Where is Gates?
+Question
+[WhereQuestion] ( WHERE [Linking] ( IS ) [LocationQuery] ( [Location] ( [Building] ( GATES ) ) ) ) 
+
+Question
+[WhereQuestion].[Linking].[LocationQuery].[Location].[Building].GATES
+
+Where is GHC?
+Verbs
+[Linking] ( IS ) 
+
+Verbs
+[Linking].
+
+How do I get to GHC?
+Verbs
+[Linking] ( [AllLinking] ( DO ) ) 
+
+Verbs
+[Linking].[AllLinking].DO
+
+#Departments
+What's in LTI?
+No parses found
+
+Who's in LTI?
+No parses found
+
+What is LTI?
+Verbs
+[Linking] ( IS ) 
+
+Verbs
+[Linking].
+
+What is SCS?
+Verbs
+[Linking] ( IS ) 
+
+Verbs
+[Linking].
+
+Who's in SCS?
+No parses found
+
+What is Dr. Nyberg's Department?
+Question
+[WhatQuestion] ( WHAT [Linking] ( IS ) [InfoQuery] ( [Node] ( [Person] ( [Professor] ( NYBERG ) ) ) 'S [Info] ( [_Department] ( DEPARTMENT ) ) ) ) 
+
+Question
+[WhatQuestion].[Linking].[InfoQuery].[Node].[Person].[Professor].NYBERG [Info].Department
+
+In what department does Alan Black work?
+InfoFunc
+[_Department] ( DEPARTMENT ) 
+Verbs
+[Linking] ( [AllLinking] ( DOES ) ) 
+GeneralTypes
+[Person] ( [Professor] ( ALAN BLACK ) ) 
+
+InfoFunc
+Department 
+Verbs
+[Linking].[AllLinking].DOES 
+GeneralTypes
+[Person].[Professor].ALAN BLACK
+

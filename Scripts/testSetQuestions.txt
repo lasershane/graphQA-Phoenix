@@ -1,0 +1,32 @@
+// Test Set of questions for testing the system.
+
+#People's information
+Where is Dr. Nyberg's office?
+Where is the office of Dr. Alan Black?
+Where does Alan Black sit?
+Who is Dr. Nyberg?
+What's the email of Alan Black?
+What is Alan Black's Email?
+What's the phone number for Alan Black?
+What is Dr. Nyberg's Phone Number?
+
+#Professor's department
+What department is Dr. Nyberg in?
+To what department does Dr. Nyberg belong?
+What is Dr. Nyberg's department?
+
+#Buildings
+Where is the Gates buliding?
+Where is Gates?
+Where is GHC?
+How do I get to GHC?
+
+#Departments
+What's in LTI?
+Who's in LTI?
+What is LTI?
+What is SCS?
+Who's in SCS?
+What is Dr. Nyberg's Department?
+In what department does Alan Black work?
+
