@@ -120,15 +120,27 @@
 [DTMF_NINE]  2 states  1 arcs
 [DTMF_POUND]  2 states  1 arcs
 [DTMF_STAR]  2 states  1 arcs
-[Professor]  7 states  15 arcs
-WARNING: compiling net [OfficeQuery] could not find called net [professor]
-WARNING: compiling net [OfficeQuery] could not find called net [professor]
-WARNING: compiling net [OfficeQuery] could not find called net [professor]
-[OfficeQuery]  36 states  52 arcs
-[DescriptionQuery]  18 states  23 arcs
-[PhoneQuery]  88 states  201 arcs
-[EmailQuery]  37 states  83 arcs
-[DepartmentQuery]  2 states  1 arcs
-[PublicationQuery]  2 states  1 arcs
-[ResearchQuery]  2 states  1 arcs
+[WhatQuestion]  6 states  6 arcs
+[WhoQuestion]  4 states  3 arcs
+[WhereQuestion]  4 states  3 arcs
+[Linking]  2 states  5 arcs
+[AllLinking]  2 states  19 arcs
+[Person]  2 states  3 arcs
+[Staff]  4 states  6 arcs
+[Student]  6 states  12 arcs
+[Professor]  6 states  12 arcs
+[Info]  2 states  5 arcs
+[Rel]  2 states  4 arcs
+[_Phone]  3 states  4 arcs
+[_Office]  2 states  2 arcs
+[_Email]  3 states  3 arcs
+[_Department]  2 states  1 arcs
+[_Publication]  4 states  7 arcs
+[_Research]  2 states  1 arcs
+[Building]  2 states  2 arcs
+[Location]  2 states  2 arcs
+[Node]  2 states  2 arcs
+[InfoQuery]  4 states  3 arcs
+[PersonQuery]  5 states  6 arcs
+[LocationQuery]  4 states  4 arcs
 compile_gra> doing Phoenix concept_leaf
