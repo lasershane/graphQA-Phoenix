@@ -33,6 +33,10 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 #include "grammar.h"
 
 #define	PATH_TREE_DEPTH	50	/* max call-nets in single rewrite rule */
@@ -144,6 +148,10 @@ extern PhxExports char	*get_grammar_file();
 extern PhxExports char	*get_dict_file();
 extern PhxExports char	*get_priority_file();
 extern PhxExports char	*get_forms_file();
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif /* __cplusplus */
 
 #endif
 
