@@ -1334,57 +1334,96 @@ void print_profile(void)
 void print_parse(int parse_num, char *out_str, int extract, Gram *gram)
 {
     int	j, frame;
+    int firstFrame, firstLeaf;
     SeqNode	**fptr;
     char	*out_ptr;
 
     out_ptr= out_str;
     frame= -1;
+    firstFrame = 1;
+    firstLeaf = 1;
+
 
     fptr= parses + (n_slots * parse_num);
     for(j=0; j < n_slots; j++, fptr++) {
-	/* if starting a new frame */
-	if( (*fptr)->frame_id->id != frame ) {
-	    frame= (*fptr)->frame_id->id;
-	    if( (frame < 0) || (frame > gram->num_forms) ) {
-		fprintf(stderr, "ERROR: frame  id out of range %d\n", frame);
-		exit(-1);
-	    }
-	    if( out_ptr ) {
-		sprintf(out_ptr, "%s\n", gram->frame_name[frame]);
-		out_ptr += strlen(out_ptr);
-	    }
-	    else printf("%s\n", gram->frame_name[frame]);
-	}
+        /* if starting a new frame */
+        if( (*fptr)->frame_id->id != frame ) {
+            frame= (*fptr)->frame_id->id;
+            if( (frame < 0) || (frame > gram->num_forms) ) {
+                fprintf(stderr, "ERROR: frame  id out of range %d\n", frame);
+                exit(-1);
+            }
 
-	/* print slot tree */
-	if( extract ) {
-	    char *old;
+            if (firstFrame) {
+                if( out_ptr ) {
+                    sprintf(out_ptr, "{ \"%s\": \n{", gram->frame_name[frame]);
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf("{ \"%s\": \n{", gram->frame_name[frame]);
+                firstFrame = 0;
+            } else {
+                if( out_ptr ) {
+                    sprintf(out_ptr, "}, \"%s\": \n{", gram->frame_name[frame]);
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf("}, \"%s\": \n{", gram->frame_name[frame]);
+            }
+        }
 
-	    old= out_ptr;
-	    out_ptr= print_extracts( (*fptr)->edge, gram, out_ptr);
-	    if( !out_ptr || (out_ptr > old) ) {
-	      if( out_ptr ) {
-		sprintf(out_ptr, "\n");
-		out_ptr += strlen(out_ptr);
-	      }
-	      else printf("\n");
-	    }
-	}
-	else {
-	    out_ptr= print_edge( (*fptr)->edge, gram, out_ptr);
-	    if( out_ptr ) {
-		sprintf(out_ptr, "\n");
-		out_ptr += strlen(out_ptr);
-	    }
-	    else printf("\n");
-	}
+        /* print slot tree */
+        if( extract ) {
+            if( firstLeaf ) {
+                if( out_ptr ) {
+                    sprintf(out_ptr, "\"extracts\": [{");
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf("\"extracts\": [{");
+                firstLeaf = 0;
+            } else {
+                if( out_ptr ) {
+                    sprintf(out_ptr, ", {");
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf(", {");
+            }
+
+            out_ptr= print_extracts( (*fptr)->edge, gram, out_ptr);
+            if( out_ptr ) {
+                sprintf(out_ptr, "} ");
+                out_ptr += strlen(out_ptr);
+            }
+            else printf("} ");
+        }
+        else {
+            if( firstLeaf ) {
+                if( out_ptr ) {
+                    sprintf(out_ptr, "\"edges\": [\"");
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf("\"edges\": [\"");
+                firstLeaf = 0;
+            } else {
+                if( out_ptr ) {
+                    sprintf(out_ptr, "\", \"");
+                    out_ptr += strlen(out_ptr);
+                }
+                else printf("\", \"");
+            }
+
+            out_ptr= print_edge( (*fptr)->edge, gram, out_ptr);
+            if( out_ptr ) {
+                sprintf(out_ptr, "\"");
+                out_ptr += strlen(out_ptr);
+            }
+            else printf("\"");
+        }
     }
 
     if( out_ptr ) {
-	sprintf(out_ptr, "\n");
-	out_ptr += strlen(out_ptr);
+        sprintf(out_ptr, "]}}\n");
+        out_ptr += strlen(out_ptr);
     }
-    else printf("\n");
+    else printf("]}}\n");
     fflush(stdout);
 }
 
