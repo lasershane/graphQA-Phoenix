@@ -1362,11 +1362,12 @@ void print_parse(int parse_num, char *out_str, int extract, Gram *gram)
                 else printf("{ \"%s\": \n{", gram->frame_name[frame]);
                 firstFrame = 0;
             } else {
+                firstLeaf = 1;
                 if( out_ptr ) {
-                    sprintf(out_ptr, "}, \"%s\": \n{", gram->frame_name[frame]);
+                    sprintf(out_ptr, "]},\n \"%s\": \n{", gram->frame_name[frame]);
                     out_ptr += strlen(out_ptr);
                 }
-                else printf("}, \"%s\": \n{", gram->frame_name[frame]);
+                else printf("]},\n \"%s\": \n{", gram->frame_name[frame]);
             }
         }
 
