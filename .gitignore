@@ -1,7 +1,9 @@
 bin
-/config.*
 *.a
 *.mak
 *.o
 *.swp
 workspace/
+config.log
+config.status
+config.cache
